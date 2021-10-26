@@ -17,10 +17,7 @@ uint8_t u8log_buffer[U8LOG_WIDTH*U8LOG_HEIGHT];
 
 int displayWidth = 128;
 int displayHeight = 64;
-char sent1[30] = "this is the first sentence";
-char sent2[35] = "the next thing that comes is this";
-char sent3[35] = "however, this comes afterwards";
-char sent4[30] = "ummmmmm";
+String incomingString = "";
 
 void setup(void) {
   Serial.begin(9600);
@@ -32,19 +29,13 @@ void setup(void) {
 }
 
 void loop(void) {
-  // Print a number on the U8g2log window
-  u8g2log.print(sent1);
-  // Print a new line, scroll the text window content if required
-  // Refresh the screen
-  u8g2log.print("\n");
-  delay(3000);
-  u8g2log.print(sent2);
-  u8g2log.print("\n");
-  delay(3000);
-  u8g2log.print(sent3);
-  u8g2log.print("\n");
-  delay(3000);
-  u8g2log.print(sent4);
-  u8g2log.print("\n");
-  delay(3000);
+  if (Serial.available() > 0) {
+    // read the incoming byte:
+    incomingString = Serial.readString();
+    // Print string on the U8g2log window
+    // Print a new line, scroll the text window content if required
+    // Refresh the screen
+    u8g2log.print(incomingString);
+    u8g2log.print("\n");
+  }
 }
