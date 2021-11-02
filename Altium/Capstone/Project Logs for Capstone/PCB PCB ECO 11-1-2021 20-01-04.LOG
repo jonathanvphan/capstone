@@ -1,0 +1,5 @@
+Added Component: Designator=J_BT(HC05)
+Added Pin To Net: NetName=NetJ_BT_2 Pin=J_BT-2
+Added Pin To Net: NetName=TX1 Pin=J_BT-3
+Added Pin To Net: NetName=GND Pin=J_BT-4
+Added Member To Class: ClassName=MCU Member=Component J_BT BLUETOOTH

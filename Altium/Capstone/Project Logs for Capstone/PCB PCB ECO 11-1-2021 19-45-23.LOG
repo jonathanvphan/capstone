@@ -1,0 +1,7 @@
+Added Net: Name=NetJ_BT_2
+Added Pin To Net: NetName=RX1 Pin=J_TEST-0
+Added Pin To Net: NetName=RX1 Pin=MCU-0
+Added Net: Name=RX1
+Added Pin To Net: NetName=TX1 Pin=J_TEST-1
+Added Pin To Net: NetName=TX1 Pin=MCU-1
+Added Net: Name=TX1

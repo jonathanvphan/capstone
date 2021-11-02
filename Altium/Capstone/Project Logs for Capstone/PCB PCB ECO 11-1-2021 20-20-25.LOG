@@ -1,0 +1,4 @@
+Added Component: Designator=J_BAT(2POS_TERMINAL)
+Added Pin To Net: NetName=9V Pin=J_BAT-1
+Added Pin To Net: NetName=GND Pin=J_BAT-2
+Added Member To Class: ClassName=MCU Member=Component J_BAT 9V CONN

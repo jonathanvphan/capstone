@@ -1,0 +1,42 @@
+Added Pin To Net: NetName=+3.3V Pin=L1-1
+Added Pin To Net: NetName=NetD1_1 Pin=L1-2
+Added Pin To Net: NetName=0 Pin=MCU-0
+Added Net: Name=0
+Added Pin To Net: NetName=1 Pin=MCU-1
+Added Net: Name=1
+Added Pin To Net: NetName=2 Pin=MCU-2
+Added Net: Name=2
+Added Pin To Net: NetName=3 Pin=MCU-3
+Added Net: Name=3
+Added Pin To Net: NetName=4 Pin=MCU-4
+Added Net: Name=4
+Added Pin To Net: NetName=5 Pin=MCU-5
+Added Net: Name=5
+Added Pin To Net: NetName=6 Pin=MCU-6
+Added Net: Name=6
+Added Pin To Net: NetName=7 Pin=MCU-7
+Added Net: Name=7
+Added Pin To Net: NetName=12 Pin=MCU-12
+Added Net: Name=12
+Added Pin To Net: NetName=14 Pin=MCU-14
+Added Net: Name=14
+Added Pin To Net: NetName=15 Pin=MCU-15
+Added Net: Name=15
+Added Pin To Net: NetName=16 Pin=MCU-16
+Added Net: Name=16
+Added Pin To Net: NetName=17 Pin=MCU-17
+Added Net: Name=17
+Added Pin To Net: NetName=18 Pin=MCU-18
+Added Net: Name=18
+Added Pin To Net: NetName=19 Pin=MCU-19
+Added Net: Name=19
+Added Pin To Net: NetName=20 Pin=MCU-20
+Added Net: Name=20
+Added Pin To Net: NetName=21 Pin=MCU-21
+Added Net: Name=21
+Added Pin To Net: NetName=22 Pin=MCU-22
+Added Net: Name=22
+Added Pin To Net: NetName=23 Pin=MCU-23
+Added Net: Name=23
+Added Pin To Net: NetName=26 Pin=MCU-26
+Added Net: Name=26

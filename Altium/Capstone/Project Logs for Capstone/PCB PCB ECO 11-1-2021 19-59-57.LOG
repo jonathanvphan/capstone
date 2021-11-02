@@ -1,0 +1,8 @@
+Added Component: Designator=R_BT1(SMD-0603)
+Added Component: Designator=R_BT2(SMD-0603)
+Added Pin To Net: NetName=RX1 Pin=R_BT1-1
+Added Pin To Net: NetName=NetJ_BT_2 Pin=R_BT1-2
+Added Pin To Net: NetName=GND Pin=R_BT2-1
+Added Pin To Net: NetName=NetJ_BT_2 Pin=R_BT2-2
+Added Member To Class: ClassName=MCU Member=Component R_BT1 1K
+Added Member To Class: ClassName=MCU Member=Component R_BT2 2K

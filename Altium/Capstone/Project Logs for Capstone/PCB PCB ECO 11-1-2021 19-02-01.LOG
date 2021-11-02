@@ -1,0 +1,29 @@
+Added Component: Designator=J_TEST(TESTPINS)
+Added Pin To Net: NetName=0 Pin=J_TEST-0
+Added Pin To Net: NetName=1 Pin=J_TEST-1
+Added Pin To Net: NetName=2 Pin=J_TEST-2
+Added Pin To Net: NetName=3 Pin=J_TEST-3
+Added Pin To Net: NetName=4 Pin=J_TEST-4
+Added Pin To Net: NetName=5 Pin=J_TEST-5
+Added Pin To Net: NetName=6 Pin=J_TEST-6
+Added Pin To Net: NetName=7 Pin=J_TEST-7
+Added Pin To Net: NetName=R\S\T\ Pin=J_TEST-8
+Added Pin To Net: NetName=D/C\ Pin=J_TEST-9
+Added Pin To Net: NetName=C\S\ Pin=J_TEST-10
+Added Pin To Net: NetName=D1 Pin=J_TEST-11
+Added Pin To Net: NetName=12 Pin=J_TEST-12
+Added Pin To Net: NetName=D0 Pin=J_TEST-13
+Added Pin To Net: NetName=14 Pin=J_TEST-14
+Added Pin To Net: NetName=15 Pin=J_TEST-15
+Added Pin To Net: NetName=16 Pin=J_TEST-16
+Added Pin To Net: NetName=17 Pin=J_TEST-17
+Added Pin To Net: NetName=18 Pin=J_TEST-18
+Added Pin To Net: NetName=19 Pin=J_TEST-19
+Added Pin To Net: NetName=20 Pin=J_TEST-20
+Added Pin To Net: NetName=21 Pin=J_TEST-21
+Added Pin To Net: NetName=22 Pin=J_TEST-22
+Added Pin To Net: NetName=23 Pin=J_TEST-23
+Added Pin To Net: NetName=+3.3V Pin=J_TEST-24
+Added Pin To Net: NetName=GND Pin=J_TEST-25
+Added Pin To Net: NetName=26 Pin=J_TEST-26
+Added Member To Class: ClassName=MCU Member=Component J_TEST Test Pins
