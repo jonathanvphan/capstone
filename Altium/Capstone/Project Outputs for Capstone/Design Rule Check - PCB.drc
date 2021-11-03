@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Admin\Documents\GitHub\capstone\Altium\Capstone\PCB.PcbDoc
 Date     : 11/2/2021
-Time     : 23:05:14
+Time     : 23:16:45
 
 Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
 Rule Violations :0
@@ -39,4 +39,4 @@ Rule Violations :0
 
 Violations Detected : 0
 Waived Violations : 0
-Time Elapsed        : 00:00:01
+Time Elapsed        : 00:00:00
