@@ -1,122 +1,16 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Admin\Documents\GitHub\capstone\Altium\Capstone\PCB.PcbDoc
-Date     : 11/1/2021
-Time     : 20:33:15
+Date     : 11/2/2021
+Time     : 23:05:14
 
 Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-10(89.97mm,17.49mm) on Top Layer And Pad J_OLED-11(89.97mm,17.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-10(89.97mm,17.49mm) on Top Layer And Pad J_OLED-9(89.97mm,16.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-11(89.97mm,17.99mm) on Top Layer And Pad J_OLED-12(89.97mm,18.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-12(89.97mm,18.49mm) on Top Layer And Pad J_OLED-13(89.97mm,18.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-13(89.97mm,18.99mm) on Top Layer And Pad J_OLED-14(89.97mm,19.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-14(89.97mm,19.49mm) on Top Layer And Pad J_OLED-15(89.97mm,19.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-15(89.97mm,19.99mm) on Top Layer And Pad J_OLED-16(89.97mm,20.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-16(89.97mm,20.49mm) on Top Layer And Pad J_OLED-17(89.97mm,20.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-17(89.97mm,20.99mm) on Top Layer And Pad J_OLED-18(89.97mm,21.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-18(89.97mm,21.49mm) on Top Layer And Pad J_OLED-19(89.97mm,21.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-19(89.97mm,21.99mm) on Top Layer And Pad J_OLED-20(89.97mm,22.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-20(89.97mm,22.49mm) on Top Layer And Pad J_OLED-21(89.97mm,22.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-21(89.97mm,22.99mm) on Top Layer And Pad J_OLED-22(89.97mm,23.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-22(89.97mm,23.49mm) on Top Layer And Pad J_OLED-23(89.97mm,23.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-23(89.97mm,23.99mm) on Top Layer And Pad J_OLED-24(89.97mm,24.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-3(89.97mm,13.99mm) on Top Layer And Pad J_OLED-4(89.97mm,14.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-4(89.97mm,14.49mm) on Top Layer And Pad J_OLED-5(89.97mm,14.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-5(89.97mm,14.99mm) on Top Layer And Pad J_OLED-6(89.97mm,15.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-6(89.97mm,15.49mm) on Top Layer And Pad J_OLED-7(89.97mm,15.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-7(89.97mm,15.99mm) on Top Layer And Pad J_OLED-8(89.97mm,16.49mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad J_OLED-8(89.97mm,16.49mm) on Top Layer And Pad J_OLED-9(89.97mm,16.99mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad U1-1(39.756mm,28.207mm) on Top Layer And Pad U1-2(40.706mm,28.208mm) on Top Layer 
-   Violation between Clearance Constraint: (0.25mm < 0.254mm) Between Pad U1-2(40.706mm,28.208mm) on Top Layer And Pad U1-3(41.656mm,28.207mm) on Top Layer 
-Rule Violations :23
+Rule Violations :0
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
 Rule Violations :0
 
 Processing Rule : Un-Routed Net Constraint ( (All) )
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad C1-2(38.555mm,16.129mm) on Top Layer And Pad C2-2(39.212mm,13.97mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad JP_SA0_HI-2(17.78mm,14.539mm) on Top Layer And Pad C1-2(38.555mm,16.129mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad C1-2(38.555mm,16.129mm) on Top Layer And Pad L1-1(42.165mm,19.431mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad C4-2(39.023mm,11.811mm) on Top Layer And Pad C2-2(39.212mm,13.97mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED Between Pad C3-2(35.306mm,5.6mm) on Top Layer And Pad C8-2(37.719mm,3.7mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad C4-2(39.023mm,11.811mm) on Top Layer And Pad C5-2(39.223mm,9.398mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Pad C6-2(8.128mm,6.87mm) on Top Layer And Pad R3-1(10.287mm,7.768mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetC7_2 Between Pad C7-2(42.037mm,5.146mm) on Top Layer And Pad J_OLED-22(89.97mm,23.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED Between Pad C8-2(37.719mm,3.7mm) on Top Layer And Pad C9-2(39.878mm,5.727mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED Between Pad C9-2(39.878mm,5.727mm) on Top Layer And Pad D1-2(42.238mm,22.86mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetD1_1 Between Pad D1-1(39.878mm,22.86mm) on Top Layer And Pad L1-2(40.005mm,19.431mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetD1_1 Between Pad U1-1(39.756mm,28.207mm) on Top Layer And Pad D1-1(39.878mm,22.86mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED Between Pad D1-2(42.238mm,22.86mm) on Top Layer And Pad J_OLED-23(89.97mm,23.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED Between Pad R1-2(39.878mm,24.639mm) on Top Layer And Pad D1-2(42.238mm,22.86mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Pad R3-1(10.287mm,7.768mm) on Top Layer And Pad D2-1(12.065mm,6.604mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Pad D2-1(12.065mm,6.604mm) on Top Layer And Via (20.35mm,4.983mm) from Top Layer to Bottom Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad D2-2(12.065mm,8.924mm) on Top Layer And Pad JP_SA0_HI-2(17.78mm,14.539mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad R3-2(10.287mm,9.27mm) on Top Layer And Pad D2-2(12.065mm,8.924mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetJ_BT_2 Between Pad J_BT-2(48.895mm,13.716mm) on Multi-Layer And Pad R_BT1-2(53.975mm,15.805mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net TX1 Between Pad J_BT-3(48.895mm,16.256mm) on Multi-Layer And Pad J_TEST-1(53.776mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net TX1 Between Pad MCU-1(7.493mm,18.288mm) on Multi-Layer And Pad J_BT-3(48.895mm,16.256mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D/C\ Between Pad J_TEST-9(74.096mm,29.137mm) on Multi-Layer And Pad J_OLED-10(89.97mm,17.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net R/W\R\ Between Pad R22-1(20.32mm,12.617mm) on Top Layer And Pad J_OLED-11(89.97mm,17.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net E/R\D\ Between Pad R23-1(22.86mm,12.617mm) on Top Layer And Pad J_OLED-12(89.97mm,18.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D0 Between Pad J_TEST-13(81.716mm,31.804mm) on Multi-Layer And Pad J_OLED-13(89.97mm,18.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D1 Between Pad J_TEST-11(79.176mm,29.137mm) on Multi-Layer And Pad J_OLED-14(89.97mm,19.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D3 Between Pad R24-1(25.4mm,12.582mm) on Top Layer And Pad J_OLED-16(89.97mm,20.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D4 Between Pad R31-1(27.94mm,12.639mm) on Top Layer And Pad J_OLED-17(89.97mm,20.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D5 Between Pad R32-1(30.48mm,12.639mm) on Top Layer And Pad J_OLED-18(89.97mm,21.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D6 Between Pad R33-1(33.02mm,12.639mm) on Top Layer And Pad J_OLED-19(89.97mm,21.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D7 Between Pad R34-1(35.56mm,12.639mm) on Top Layer And Pad J_OLED-20(89.97mm,22.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetJ_OLED_21 Between Pad R4-2(44.323mm,5.6mm) on Top Layer And Pad J_OLED-21(89.97mm,22.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad L1-1(42.165mm,19.431mm) on Top Layer And Pad J_OLED-5(89.97mm,14.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net BS1 Between Pad R11-1(6.985mm,10.918mm) on Top Layer And Pad J_OLED-6(89.97mm,15.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net BS2 Between Pad R12-1(9.525mm,12.674mm) on Top Layer And Pad J_OLED-7(89.97mm,15.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net C\S\ Between Pad J_TEST-10(76.636mm,29.137mm) on Multi-Layer And Pad J_OLED-8(89.97mm,16.49mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Pad J_TEST-8(71.556mm,29.137mm) on Multi-Layer And Pad J_OLED-9(89.97mm,16.99mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net RX1 Between Pad J_TEST-0(51.236mm,29.137mm) on Multi-Layer And Pad R_BT1-1(53.975mm,14.303mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net C\S\ Between Pad MCU-10(30.353mm,18.288mm) on Multi-Layer And Pad J_TEST-10(76.636mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D1 Between Pad MCU-11(32.893mm,18.288mm) on Multi-Layer And Pad J_TEST-11(79.176mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 12 Between Pad MCU-12(35.433mm,18.288mm) on Multi-Layer And Pad J_TEST-12(81.716mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D0 Between Pad MCU-13(35.433mm,33.528mm) on Multi-Layer And Pad J_TEST-13(81.716mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 14 Between Pad MCU-14(32.893mm,33.528mm) on Multi-Layer And Pad J_TEST-14(79.176mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 15 Between Pad MCU-15(30.353mm,33.528mm) on Multi-Layer And Pad J_TEST-15(76.636mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 16 Between Pad MCU-16(27.813mm,33.528mm) on Multi-Layer And Pad J_TEST-16(74.096mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 17 Between Pad MCU-17(25.273mm,33.528mm) on Multi-Layer And Pad J_TEST-17(71.556mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 18 Between Pad MCU-18(22.733mm,33.528mm) on Multi-Layer And Pad J_TEST-18(69.016mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 19 Between Pad MCU-19(20.193mm,33.528mm) on Multi-Layer And Pad J_TEST-19(66.476mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 2 Between Pad MCU-2(10.033mm,18.288mm) on Multi-Layer And Pad J_TEST-2(56.316mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 20 Between Pad MCU-20(17.653mm,33.528mm) on Multi-Layer And Pad J_TEST-20(63.936mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 21 Between Pad MCU-21(15.113mm,33.528mm) on Multi-Layer And Pad J_TEST-21(61.396mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 22 Between Pad MCU-22(12.573mm,33.528mm) on Multi-Layer And Pad J_TEST-22(58.856mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 23 Between Pad MCU-23(10.033mm,33.528mm) on Multi-Layer And Pad J_TEST-23(56.316mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Via (37.719mm,33.147mm) from Top Layer to Bottom Layer And Pad J_TEST-24(53.776mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 26 Between Pad MCU-26(2.413mm,33.528mm) on Multi-Layer And Pad J_TEST-26(48.696mm,31.804mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 3 Between Pad MCU-3(12.573mm,18.288mm) on Multi-Layer And Pad J_TEST-3(58.856mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 4 Between Pad MCU-4(15.113mm,18.288mm) on Multi-Layer And Pad J_TEST-4(61.396mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 5 Between Pad MCU-5(17.653mm,18.288mm) on Multi-Layer And Pad J_TEST-5(63.936mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 6 Between Pad MCU-6(20.193mm,18.288mm) on Multi-Layer And Pad J_TEST-6(66.476mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net 7 Between Pad MCU-7(22.733mm,18.288mm) on Multi-Layer And Pad J_TEST-7(69.016mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Pad MCU-8(25.273mm,18.288mm) on Multi-Layer And Pad J_TEST-8(71.556mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D/C\ Between Pad MCU-9(27.813mm,18.288mm) on Multi-Layer And Pad J_TEST-9(74.096mm,29.137mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad JP_BS1_HI-1(3.749mm,10.795mm) on Top Layer And Pad JP_BS2_HI-1(3.749mm,14.351mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad JP_BS1_HI-1(3.749mm,10.795mm) on Top Layer And Pad R3-2(10.287mm,9.27mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net BS1 Between Pad JP_BS1_HI-2(5.649mm,10.795mm) on Top Layer And Pad R11-1(6.985mm,10.918mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad JP_BS2_HI-1(3.749mm,14.351mm) on Top Layer And Pad MCU-24(7.493mm,33.528mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net BS2 Between Pad JP_BS2_HI-2(5.649mm,14.351mm) on Top Layer And Pad R12-1(9.525mm,12.674mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D/C\ Between Pad JP_SA0_HI-1(17.78mm,12.639mm) on Top Layer And Pad MCU-9(27.813mm,18.288mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D/C\ Between Pad R21-1(14.605mm,12.731mm) on Top Layer And Pad JP_SA0_HI-1(17.78mm,12.639mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net D0 Between Pad JP_SDA=SDA-1(4.379mm,6.985mm) on Top Layer And Via (8.89mm,3.175mm) from Top Layer to Bottom Layer 
-   Violation between Un-Routed Net Constraint: Net D1 Between Pad JP_SDA=SDA-2(2.479mm,6.985mm) on Top Layer And Via (25.905mm,5.207mm) from Top Layer to Bottom Layer 
-   Violation between Un-Routed Net Constraint: Net VOLED_EN Between Pad JP_VOLED_EN-1(40.701mm,33.02mm) on Top Layer And Pad U1-4(41.656mm,30.607mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad JP_VOLED_EN-2(38.801mm,33.02mm) on Top Layer And Pad U1-5(39.756mm,30.607mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Via (37.719mm,33.147mm) from Top Layer to Bottom Layer And Pad JP_VOLED_EN-2(38.801mm,33.02mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net +3.3V Between Pad U1-5(39.756mm,30.607mm) on Top Layer And Pad L1-1(42.165mm,19.431mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net RX1 Between Pad MCU-0(4.953mm,18.288mm) on Multi-Layer And Pad R_BT1-1(53.975mm,14.303mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net C\S\ Between Pad R13-1(12.065mm,12.674mm) on Top Layer And Pad MCU-10(30.353mm,18.288mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D1 Between Via (25.905mm,5.207mm) from Top Layer to Bottom Layer And Pad MCU-11(32.893mm,18.288mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net D0 Between Via (8.89mm,3.175mm) from Top Layer to Bottom Layer And Pad MCU-13(35.433mm,33.528mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net R\S\T\ Between Via (20.35mm,4.983mm) from Top Layer to Bottom Layer And Pad MCU-8(25.273mm,18.288mm) on Multi-Layer 
-   Violation between Un-Routed Net Constraint: Net NetJ_BT_2 Between Pad R_BT1-2(53.975mm,15.805mm) on Top Layer And Pad R_BT2-2(55.118mm,20.377mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetR1_1 Between Pad R1-1(39.878mm,26.141mm) on Top Layer And Pad R2-2(41.783mm,27.05mm) on Top Layer 
-   Violation between Un-Routed Net Constraint: Net NetR1_1 Between Pad U1-3(41.656mm,28.207mm) on Top Layer And Pad R2-2(41.783mm,27.05mm) on Top Layer 
-Rule Violations :83
+Rule Violations :0
 
 Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
 Rule Violations :0
@@ -137,16 +31,12 @@ Processing Rule : Silk to Silk (Clearance=0.254mm) (All),(All)
 Rule Violations :0
 
 Processing Rule : Net Antennae (Tolerance=0mm) (All)
-   Violation between Net Antennae: Via (20.35mm,4.983mm) from Top Layer to Bottom Layer 
-   Violation between Net Antennae: Via (25.905mm,5.207mm) from Top Layer to Bottom Layer 
-   Violation between Net Antennae: Via (37.719mm,33.147mm) from Top Layer to Bottom Layer 
-   Violation between Net Antennae: Via (8.89mm,3.175mm) from Top Layer to Bottom Layer 
-Rule Violations :4
+Rule Violations :0
 
 Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
 Rule Violations :0
 
 
-Violations Detected : 110
+Violations Detected : 0
 Waived Violations : 0
 Time Elapsed        : 00:00:01

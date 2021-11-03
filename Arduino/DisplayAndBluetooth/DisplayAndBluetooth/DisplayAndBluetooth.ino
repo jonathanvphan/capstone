@@ -19,17 +19,20 @@ uint8_t u8log_buffer[U8LOG_WIDTH*U8LOG_HEIGHT];
 
 int displayWidth = 128;
 int displayHeight = 64;
+unsigned long passedTime;
+unsigned long clearDisplayTime = 5000;
 String incomingString = "";
 
 void setup(void) {
   Serial.begin(9600);
   MyBlue.begin(9600); 
-  Serial.println("Ready to connect\nDefualt password is 1234 or 000"); 
+  Serial.println("Ready to connect\nDefault password is 1234 or 000"); 
   u8g2.begin();
   u8g2.setFont(u8g2_font_ncenB08_tr); // choose a suitable font
   u8g2log.begin(u8g2, U8LOG_WIDTH, U8LOG_HEIGHT, u8log_buffer);  // connect to u8g2, assign buffer
   u8g2log.setLineHeightOffset(0); // set extra space between lines in pixel, this can be negative
   u8g2log.setRedrawMode(0);   // 0: Update screen with newline, 1: Update screen for every char  
+  passedTime = millis();
 }
 
 void loop(void) {
@@ -41,10 +44,17 @@ void loop(void) {
     // Refresh the screen
     u8g2log.print(incomingString);
     u8g2log.print("\n");
+    passedTime = millis();
   }
   if (MyBlue.available()) {
     incomingString = MyBlue.readString();
     u8g2log.print(incomingString);
     u8g2log.print("\n");
+    passedTime = millis();
+  }
+  if (millis() - passedTime > clearDisplayTime) {
+    u8g2log.print("\f");
+    u8g2.clear();
+    passedTime = millis();
   }
 }

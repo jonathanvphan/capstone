@@ -1,0 +1,6 @@
+Change Physical Footprint: Designator=J_BAT Old Footprint=2POS_TERMINAL New Footprint=2POS_TERMINAL
+Change Physical Footprint: Designator=J_BT Old Footprint=HC05 New Footprint=HC05
+Change Physical Footprint: Designator=J_OLED Old Footprint=J_OLED New Footprint=J_OLED
+Change Physical Footprint: Designator=MCU Old Footprint=TEENSY 4.0 New Footprint=TEENSY 4.0
+Change Physical Footprint: Designator=U1 Old Footprint=U1_SOT-23-5 New Footprint=U1_SOT-23-5
+Change Physical Footprint: Designator=U2 Old Footprint=U2_SO-8 New Footprint=U2_SO-8
