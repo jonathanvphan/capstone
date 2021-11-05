@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/firstFragment"
+        android:icon="@drawable/speech2text"
+        android:title="Voice2Text" />
+    <item
+        android:id="@+id/secondFragment"
+        android:icon="@drawable/translation"
+        android:title="Translation" />
+    <item
+        android:id="@+id/thirdFragment"
+        android:icon="@drawable/alert"
+        android:title="Alert" />
+</menu>

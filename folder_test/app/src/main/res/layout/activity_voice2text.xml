@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d9ffce"
+    tools:context=".voice2text">
+
+    <ImageView
+        android:id="@+id/chat_box1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60sp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/chatbox"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+
+    <TextView
+        android:id="@+id/conversion_title"
+        android:layout_width="409dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="Voice to Text Conversion History"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+    <!--        app:layout_constraintBottom_toTopOf="@+id/chat_box"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" -->
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="362dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="126dp"
+        android:layout_marginEnd="-7dp"
+        android:layout_marginBottom="10dp">
+
+
+        <TextView
+            android:id="@+id/conversion_text"
+            android:layout_width="346dp"
+            android:layout_height="365dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="
+        This is an example text generated using Google Speech to Text API.\n
+        \n
+        Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem. \n
+        \n
+        Smile spoke total few great had never their too. Amongst moments do in arrived at my replied. Fat weddings servants but man believed prospect. Companions understood is as especially pianoforte connection introduced. Nay newspaper can sportsman are admitting gentleman belonging his. Is oppose no he summer lovers twenty in. Not his difficulty boisterous surrounded bed. Seems folly if in given scale. Sex contented dependent conveying advantage can use."
+            android:textColor="#000"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="114dp" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="67dp"
+        android:layout_marginBottom="107dp"
+        android:text="Button" />
+
+
+</RelativeLayout>

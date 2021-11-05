@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d9ffce"
+    tools:context=".translation">
+
+    <ImageView
+        android:id="@+id/chat_box1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60sp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/chatbox"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/translation_title"
+        android:layout_width="409dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:text="Translation History"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="362dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="126dp"
+        android:layout_marginEnd="-7dp"
+        android:layout_marginBottom="10dp">
+
+
+        <TextView
+            android:id="@+id/translation_text"
+            android:layout_width="346dp"
+            android:layout_height="365dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="
+        This is an example text generated using Google Translation API.\n
+        \n
+        He as compliment unreserved projecting. Between had observe pretend delight for believe. Do newspaper questions consulted sweetness do. Our sportsman his unwilling fulfilled departure law. Now world own total saved above her cause table. Wicket myself her square remark the should far secure sex. Smiling cousins warrant law explain for whether. \n
+        \n
+        An country demesne message it. Bachelor domestic extended doubtful as concerns at. Morning prudent removal an letters by. On could my in order never it. Or excited certain sixteen it to parties colonel. Depending conveying direction has led immediate. Law gate her well bed life feet seen rent. On nature or no except it sussex."
+            android:textColor="#000"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="114dp" />
+
+    </ScrollView>
+</RelativeLayout>
