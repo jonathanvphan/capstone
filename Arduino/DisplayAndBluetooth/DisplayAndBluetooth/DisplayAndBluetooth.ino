@@ -22,6 +22,7 @@ int displayHeight = 64;
 unsigned long passedTime;
 unsigned long clearDisplayTime = 5000;
 String incomingString = "";
+char character;
 
 void setup(void) {
   Serial.begin(9600);
@@ -46,12 +47,20 @@ void loop(void) {
     u8g2log.print("\n");
     passedTime = millis();
   }
-  if (MyBlue.available()) {
+
+  if (MyBlue.available() > 0) {
+    // read the incoming byte:
     incomingString = MyBlue.readString();
+    // Print string on the U8g2log window
+    // Print a new line, scroll the text window content if required
+    // Refresh the screen
+    Serial.print(incomingString);
+    Serial.println();
     u8g2log.print(incomingString);
     u8g2log.print("\n");
     passedTime = millis();
   }
+      
   if (millis() - passedTime > clearDisplayTime) {
     u8g2log.print("\f");
     u8g2.clear();
