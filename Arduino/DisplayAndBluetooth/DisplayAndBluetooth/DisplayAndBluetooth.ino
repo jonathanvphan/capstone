@@ -24,9 +24,10 @@ uint8_t u8log_buffer2[U8LOG_WIDTH2*U8LOG_HEIGHT2];
 uint8_t u8log_buffer3[U8LOG_WIDTH3*U8LOG_HEIGHT3];
 int displayWidth = 64;
 int displayHeight = 128;
+int fontWidthMax = 10;
 unsigned long passedTime;
 unsigned long clearDisplayTime = 5000;
-String incomingString = "";
+char incomingString[200];
 char character;
 
 void setup(void) {
@@ -43,80 +44,141 @@ void setup(void) {
 
 void changeFont(int fontSize) {
   if (fontSize == 1) {
-    u8g2log.print("Font size set to 1");
+    fontWidthMax = 13;
     u8g2.setFont(u8g2_font_profont10_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH1, U8LOG_HEIGHT1, u8log_buffer1);  // connect to u8g2, assign buffer
+    u8g2log.print("Font size set to 1");
+    u8g2log.println();
   } 
   else if (fontSize == 2) {
-    u8g2log.print("Font size set to 1");
+    fontWidthMax = 10;
     u8g2.setFont(u8g2_font_profont12_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH2, U8LOG_HEIGHT2, u8log_buffer2);  // connect to u8g2, assign buffer
+    u8g2log.print("Font size set to 2");
+    u8g2log.println();
   }
   else if (fontSize == 3) {
-    u8g2log.print("Font size set to 1");
+    fontWidthMax = 9;
     u8g2.setFont(u8g2_font_profont15_tf);
     u8g2log.begin(u8g2, U8LOG_WIDTH3, U8LOG_HEIGHT3, u8log_buffer3);  // connect to u8g2, assign buffer
+    u8g2log.print("Font size set to 3");
+    u8g2log.println();
   }
   u8g2log.setLineHeightOffset(0); // set extra space between lines in pixel, this can be negative
   u8g2log.setRedrawMode(0);   // 0: Update screen with newline, 1: Update screen for every char  
   passedTime = millis();
 }
 
+const char * split (const char * s, const int length) {
+  // if it will fit return whole thing
+  if (strlen (s) <= length)
+    return s + strlen (s);
+
+  // searching backwards, find the last space
+  for (const char * space = &s [length]; space != s; space--)
+    if (*space == ' ')
+      return space;
+    
+  // not found? return a whole line
+  return &s [length];        
+  } // end of split
+
 void loop(void) {
   if (Serial.available() > 0) {
     // read the incoming byte:
-    incomingString = Serial.readString();
+    Serial.readString().toCharArray(incomingString, 200);
     // Print string on the U8g2log window
     // Print a new line, scroll the text window content if required
     // Refresh the screen
-    if (incomingString == "TEST") {
+    if (strcmp(incomingString, "TEST") == 0) {
       u8g2log.print("Bluetooth disconnected... reconnecting\n");
       Serial.write("A");
     }
-    else if (incomingString == "FONT1") {
+    else if (strcmp(incomingString, "FONT1") == 0) {
       changeFont(1);
     }
-    else if (incomingString == "FONT2") {
+    else if (strcmp(incomingString, "FONT2") == 0) {
       changeFont(2);
     }
-    else if (incomingString == "FONT3") {
+    else if (strcmp(incomingString, "FONT3") == 0) {
       changeFont(3);
     }
     else {
-      u8g2log.print(incomingString);
-      u8g2log.print("\n");
+      const char * p = incomingString;
+  
+      // keep going until we run out of text
+      while (*p) {
+        // find the position of the space
+        const char * endOfLine = split (p, fontWidthMax);  
+        
+        // display up to that
+        while (p != endOfLine)
+          //Serial.print(*p++);
+          u8g2log.print(*p++);
+          
+        // finish that line
+        //Serial.println();
+        u8g2log.println();
+        
+        // if we hit a space, move on past it
+        if (*p == ' ')
+          p++;
+      }
+      //u8g2log.print(incomingString);
+      //u8g2log.print("\n");
     }
     passedTime = millis();
   }
 
   if (MyBlue.available() > 0) {
     // read the incoming byte:
-    incomingString = MyBlue.readString();
+    MyBlue.readString().toCharArray(incomingString, 200);
     // Print string on the U8g2log window
     // Print a new line, scroll the text window content if required
     // Refresh the screen
     Serial.print(incomingString);
     Serial.println();
-    if (incomingString == "TEST") {
+    if (strcmp(incomingString, "TEST") == 0) {
       u8g2log.print("Bluetooth disconnected... reconnecting\n");
       MyBlue.write("A");
       Serial.write("A");
     }
-    else if (incomingString == "FONT1") {
+    else if (strcmp(incomingString, "FONT1") == 0) {
       changeFont(1);
       MyBlue.write("A");
     }
-    else if (incomingString == "FONT2") {
+    else if (strcmp(incomingString, "FONT2") == 0) {
       changeFont(2);
       MyBlue.write("A");
     }
-    else if (incomingString == "FONT3") {
+    else if (strcmp(incomingString, "FONT3") == 0) {
       changeFont(3);
       MyBlue.write("A");
     }
     else {
-      u8g2log.print(incomingString);
-      u8g2log.print("\n");
+      const char * p = incomingString;
+  
+      // keep going until we run out of text
+      while (*p) {
+        // find the position of the space
+        const char * endOfLine = split (p, fontWidthMax);  
+        
+        // display up to that
+        while (p != endOfLine)
+          //Serial.print(*p++);
+          u8g2log.print(*p++);
+          
+        // finish that line
+        //Serial.println();
+        u8g2log.println();
+        
+        // if we hit a space, move on past it
+        if (*p == ' ')
+          p++;
+      }
+      
+      //u8g2log.print(incomingString);
+      //u8g2log.print("\n");
       MyBlue.write("A");
       Serial.write("A");
     }

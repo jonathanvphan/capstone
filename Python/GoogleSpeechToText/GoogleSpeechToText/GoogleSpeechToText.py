@@ -205,10 +205,13 @@ def listen_print_loop(responses, stream, bluetooth):
 
             to_send = transcript
 
-            nameRecognition("Johnny", to_send)
-            changeFont(to_send, bluetooth)
+            nameRecognition("Johnny", to_send, bluetooth)
 
-            sendToBluetooth(to_send, bluetooth)
+            check = 0
+            check += changeFont(to_send, bluetooth)
+
+            if check == 0:
+                sendToBluetooth(to_send, bluetooth)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
@@ -227,15 +230,15 @@ def sendToBluetooth(to_send, bluetooth):
     bytes_to_send = bytes(to_send, 'utf-8')
     if bluetooth.isOpen():
         bluetooth.write(bytes_to_send)
-    checkBluetoothConnection(bluetooth)
+    #checkBluetoothConnection(bluetooth)
 
 def checkBluetoothConnection(bluetooth):
     if bluetooth.isOpen():
         ACK = bluetooth.read()
+        print("Response: " + str(ACK))
 
         if ACK == b'A':
             print("Sent successfully\n")
-            time.sleep(2)
 
         elif ACK != b'A':
             print("Bluetooth disconnected, retrying")
@@ -245,7 +248,14 @@ def checkBluetoothConnection(bluetooth):
 
             bluetooth.write(b'TEST')
 
-            checkBluetoothConnection(bluetooth)
+            ACK = bluetooth.read()
+            print("Response: " + str(ACK))
+
+            if ACK == b'A':
+                print("Sent successfully\n")
+            elif ACK != b'A':
+                checkBluetoothConnection(bluetooth)
+
     else:
         print("Bluetooth disconnected, retrying")
         bluetooth.close()
@@ -253,12 +263,18 @@ def checkBluetoothConnection(bluetooth):
         bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
 
         bluetooth.write(b'TEST')
+        ACK = bluetooth.read()
+        print("Response: " + str(ACK))
 
-        checkBluetoothConnection(bluetooth)
+        if ACK == b'A':
+            print("Sent successfully\n")
+        elif ACK != b'A':
+            checkBluetoothConnection(bluetooth)
 
-def nameRecognition(name, transcript):
+def nameRecognition(name, transcript, bluetooth):
     if name in transcript:
         print("****NAME RECOGNIZED****")
+        sendToBluetooth("Your name has been mentioned", bluetooth)
 
 def changeFont(transcript, bluetooth):
     if "size 1" in transcript:
@@ -270,40 +286,13 @@ def changeFont(transcript, bluetooth):
     elif "size 3" in transcript:
         print("Setting font size to " + str(3))
         sendToBluetooth("FONT"+str(3), bluetooth)
-
-def serial_ports():
-    """ Lists serial port names
-
-        :raises EnvironmentError:
-            On unsupported or unknown platforms
-        :returns:
-            A list of the serial ports available on the system
-    """
-    if sys.platform.startswith('win'):
-        ports = ['COM%s' % (i + 1) for i in range(256)]
-    elif sys.platform.startswith('linux') or sys.platform.startswith('cygwin'):
-        # this excludes your current terminal "/dev/tty"
-        ports = glob.glob('/dev/tty[A-Za-z]*')
-    elif sys.platform.startswith('darwin'):
-        ports = glob.glob('/dev/tty.*')
     else:
-        raise EnvironmentError('Unsupported platform')
-
-    result = []
-    for port in ports:
-        try:
-            s = serial.Serial(port)
-            s.close()
-            result.append(port)
-        except (OSError, serial.SerialException):
-            pass
-    return result
+        return 0
+    return 1
 
 def main():
     """start bidirectional streaming from microphone input to speech API"""
 
-    print("Serial ports: ")
-    #print(serial_ports())
 #    bluetooth = 1
     bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
 
@@ -365,7 +354,8 @@ def main():
             if not stream.last_transcript_was_final:
                 sys.stdout.write("\n")
             stream.new_stream = True
+   
+    bluetooth.close()
 
 if __name__ == "__main__":
     main()
-    bluetooth.close()
