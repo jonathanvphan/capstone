@@ -1,0 +1,39 @@
+com/example/listening_eye/translation.java
+ com.example.listening_eye.translation
+com/example/listening_eye/MainActivity.java
+ com.example.listening_eye.MainActivity
+ com.example.listening_eye.MainActivity$1
+ com.example.listening_eye.MainActivity$2
+com/example/listening_eye/signup.java
+ com.example.listening_eye.signup
+ com.example.listening_eye.signup$1
+ com.example.listening_eye.signup$2
+com/example/listening_eye/ThirdFragment.java
+ com.example.listening_eye.ThirdFragment
+ com.example.listening_eye.ThirdFragment$1
+ com.example.listening_eye.ThirdFragment$2
+ com.example.listening_eye.ThirdFragment$3
+ com.example.listening_eye.ThirdFragment$4
+ com.example.listening_eye.ThirdFragment$5
+ com.example.listening_eye.ThirdFragment$6
+ com.example.listening_eye.ThirdFragment$7
+ com.example.listening_eye.ThirdFragment$8
+com/example/listening_eye/ConversationMode.java
+ com.example.listening_eye.ConversationMode
+com/example/listening_eye/SecondFragment.java
+ com.example.listening_eye.SecondFragment
+ com.example.listening_eye.SecondFragment$1
+com/example/listening_eye/VoiceRecorder.java
+ com.example.listening_eye.VoiceRecorder
+com/example/listening_eye/DBHelper.java
+ com.example.listening_eye.DBHelper
+com/example/listening_eye/BuildConfig.java
+ com.example.listening_eye.BuildConfig
+com/example/listening_eye/voice2text.java
+ com.example.listening_eye.voice2text
+ com.example.listening_eye.voice2text$1
+ com.example.listening_eye.voice2text$1ResponseApiStreamingObserver
+com/example/listening_eye/FirstFragment.java
+ com.example.listening_eye.FirstFragment
+ com.example.listening_eye.FirstFragment$1
+ com.example.listening_eye.FirstFragment$2
