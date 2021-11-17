@@ -1,6 +1,7 @@
 package com.example.listening_eye;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -68,11 +69,10 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first, container, false);
 
-        //BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
-        //System.out.println(btAdapter.getBondedDevices());
 
-        Button testAudio;
-        testAudio = view.findViewById(R.id.test_audio);
+
+//        Button testAudio;
+//        testAudio = view.findViewById(R.id.test_audio);
         Button viewConversionButton;
         viewConversionButton = view.findViewById(R.id.view_conversion_history_button);
         viewConversionButton.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +85,13 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        testAudio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), VoiceRecorder.class);
-                startActivity(intent);
-            }
-        });
+//        testAudio.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), VoiceRecorder.class);
+//                startActivity(intent);
+//            }
+//        });
         return view;
     }
 

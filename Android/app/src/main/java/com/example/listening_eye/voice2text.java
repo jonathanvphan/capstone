@@ -54,7 +54,9 @@ import com.google.cloud.speech.v1.WordInfo;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.ByteString;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,14 +81,14 @@ public class voice2text extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        String filenameTest="src/credential.json";
-        Path pathToFile = Paths.get(filenameTest);
-        System.out.println(pathToFile.toAbsolutePath());
+//        String filenameTest="src/credential.json";
+//        Path pathToFile = Paths.get(filenameTest);
+//        System.out.println(pathToFile.toAbsolutePath());
 
-        String credentialPath = "/src/credential.json";
+        String credentialPath = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json";
 
         Button testButton = findViewById(R.id.testButton);
-//        Environment GOOGLE_APPLICATION_CREDENTIALS = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credentials.json";
+//        Environment GOOGLE_APPLICATION_CREDENTIALS = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json";
 //        try {
 //            authExplicit("/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json");
 //        } catch (IOException e) {
@@ -161,8 +163,19 @@ public class voice2text extends AppCompatActivity {
      * @param fileName the path to a PCM audio file to transcribe.
      */
     public static void streamingRecognizeFile(String fileName) throws Exception, IOException {
-        Path path = Paths.get(fileName);
+//        Path path = Paths.get(fileName);
+//        System.out.println(Files.exists(path));
+//        System.out.println(Files.notExists(path));
+        File f = new File(fileName);
+        System.out.println(f.getAbsoluteFile());
+        System.out.println(fileName);
+        Path path = Paths.get(f.getAbsolutePath());
+        System.out.println(path.getFileName());
+        System.out.println(path.toUri());
         byte[] data = Files.readAllBytes(path);
+        System.out.println(data);
+
+
 
         FileInputStream credentialsStream = new FileInputStream(fileName);
         GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream);
@@ -176,7 +189,7 @@ public class voice2text extends AppCompatActivity {
 
         // Instantiates a client with GOOGLE_APPLICATION_CREDENTIALS
         try (SpeechClient speech = SpeechClient.create(speechSettings)) {
-
+            System.out.println("printed succes");
             // Configure request with local raw PCM audio
             RecognitionConfig recConfig =
                     RecognitionConfig.newBuilder()

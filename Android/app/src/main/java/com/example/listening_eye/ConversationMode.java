@@ -1,21 +1,53 @@
 package com.example.listening_eye;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.ParcelUuid;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+import pub.devrel.easypermissions.EasyPermissions;
+
 public class ConversationMode extends AppCompatActivity {
+    //private int requestCode = 101;
+    //public static final String[] BLUETOOTH_PERMISSIONS_S = { Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT} ;
+
+
+    static final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
+    Button buttonON, buttonOFF;
+    BluetoothAdapter btAdapter;
+    Intent enableBluetoothIntent;
+    int REQUEST_ENABLE_BT;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +62,130 @@ public class ConversationMode extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+
+//        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+//
+//        if (btAdapter.isEnabled()) {
+////            SharedPreferences prefs_btdev = getSharedPreferences("btdev", 0);
+////            String btdevaddr=prefs_btdev.getString("btdevaddr","?");
+//            String btdevaddr = "C0:D0:12:96:6E:3C";
+//            if (btdevaddr != "?")
+//            {
+//                BluetoothDevice device = btAdapter.getRemoteDevice(btdevaddr);
+//
+//                UUID SERIAL_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); // bluetooth serial port service
+//                //UUID SERIAL_UUID = device.getUuids()[0].getUuid(); //if you don't know the UUID of the bluetooth device service, you can get it like this from android cache
+//
+//                BluetoothSocket socket = null;
+//
+//                try {
+//                    socket = device.createRfcommSocketToServiceRecord(SERIAL_UUID);
+//                } catch (Exception e) {Log.e("","Error creating socket");}
+//
+//                try {
+//                    socket.connect();
+//                    Log.e("","Connected");
+//                } catch (IOException e) {
+//                    Log.e("",e.getMessage());
+//                    try {
+//                        Log.e("","trying fallback...");
+//
+//                        socket =(BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(device,1);
+//                        socket.connect();
+//
+//                        Log.e("","Connected");
+//                    }
+//                    catch (Exception e2) {
+//                        Log.e("", "Couldn't establish Bluetooth connection!");
+//                    }
+//                }
+//            }
+//            else
+//            {
+//                Log.e("","BT device not selected");
+//            }
+//        }
+//        BluetoothAdapter btAdapter;
+//        btAdapter = BluetoothAdapter.getDefaultAdapter();
+//
+//
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            if (!EasyPermissions.hasPermissions(this, BLUETOOTH_PERMISSIONS_S)) {
+//                EasyPermissions.requestPermissions(this, "message", yourRequestCode,BLUETOOTH_PERMISSIONS_S);
+//            }
+//        }
+
+//        if (!btAdapter.isEnabled()) {
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(enableBtIntent, requestCode);
+//        }
+
+        buttonON = findViewById(R.id.bluetoothOn);
+        buttonOFF = findViewById(R.id.bluetoothOff);
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        enableBluetoothIntent = new Intent(btAdapter.ACTION_REQUEST_ENABLE);
+        REQUEST_ENABLE_BT = 1;
+
+        bluetoothOnMethod();
+        bluetoothOFFMethod();
+
+
+
+
+//        System.out.println(btAdapter.getBondedDevices());
+//
+
+//        BluetoothDevice hc05 = btAdapter.getRemoteDevice("C0:D0:12:96:6E:3C");
+//        //BluetoothDevice hc05 = btAdapter.getRemoteDevice("00:21:07:34:D6:55");
+//        System.out.println(hc05.getName());
+//
+//        BluetoothSocket btSocket = null;
+//        int counter = 0;
+//
+//        do {
+//            try {
+//                btSocket = hc05.createRfcommSocketToServiceRecord(mUUID);
+//                System.out.println(btSocket);
+//                btSocket.connect();
+//                System.out.println(btSocket.isConnected());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            counter++;
+//        } while (!btSocket.isConnected() && counter < 3);
+//
+//
+//
+//        try {
+//            OutputStream outputStream = btSocket.getOutputStream();
+//            outputStream.write(48);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        InputStream inputStream = null;
+//        try {
+//            inputStream = btSocket.getInputStream();
+//            inputStream.skip(inputStream.available());
+//            for (int i = 0; i < 26; i++) {
+//                byte b = (byte) inputStream.read();
+//                System.out.println((char) b);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//        try {
+//            btSocket.close();
+//            System.out.println(btSocket.isConnected());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
 
         //TextView frag1_instru;
 //        Button viewConversionButton;
@@ -59,4 +215,51 @@ public class ConversationMode extends AppCompatActivity {
 //        });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == RESULT_OK) {
+                System.out.println("BT ENABLED");
+            } else if (resultCode == RESULT_CANCELED) {
+                System.out.println("BT ENABLING CANCELLED");
+            }
+        }
+    }
+
+    private void bluetoothOnMethod() {
+        buttonON.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("BT ON CLICKED");
+                if(btAdapter == null) {
+                    System.out.println("Device does not support BT");
+                } else {
+                    if(!btAdapter.isEnabled()) {
+                        startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT);
+                    }
+                }
+            }
+        });
+    }
+
+    private void bluetoothOFFMethod() {
+        buttonOFF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("BT OFF CLICKED");
+                if(btAdapter.isEnabled()) {
+                    btAdapter.disable();
+                }
+            }
+        });
+    }
+
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+//    }
 }
