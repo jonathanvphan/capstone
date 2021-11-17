@@ -25,9 +25,11 @@ uint8_t u8log_buffer3[U8LOG_WIDTH3*U8LOG_HEIGHT3];
 int displayWidth = 64;
 int displayHeight = 128;
 int fontWidthMax = 10;
+int lineScreenMax = 13;
+int lineCounter = 0;
 unsigned long passedTime;
 unsigned long clearDisplayTime = 5000;
-char incomingString[200];
+char incomingString[300];
 char character;
 
 void setup(void) {
@@ -45,6 +47,8 @@ void setup(void) {
 void changeFont(int fontSize) {
   if (fontSize == 1) {
     fontWidthMax = 13;
+    lineScreenMax = 16;
+    clearDisplayTime = 6000
     u8g2.setFont(u8g2_font_profont10_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH1, U8LOG_HEIGHT1, u8log_buffer1);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 1");
@@ -52,6 +56,8 @@ void changeFont(int fontSize) {
   } 
   else if (fontSize == 2) {
     fontWidthMax = 10;
+    lineScreenMax = 13;
+    clearDisplayTime = 5000
     u8g2.setFont(u8g2_font_profont12_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH2, U8LOG_HEIGHT2, u8log_buffer2);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 2");
@@ -59,6 +65,8 @@ void changeFont(int fontSize) {
   }
   else if (fontSize == 3) {
     fontWidthMax = 9;
+    lineScreenMax = 12;
+    clearDisplayTime = 4000
     u8g2.setFont(u8g2_font_profont15_tf);
     u8g2log.begin(u8g2, U8LOG_WIDTH3, U8LOG_HEIGHT3, u8log_buffer3);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 3");
@@ -86,12 +94,12 @@ const char * split (const char * s, const int length) {
 void loop(void) {
   if (Serial.available() > 0) {
     // read the incoming byte:
-    Serial.readString().toCharArray(incomingString, 200);
+    Serial.readString().toCharArray(incomingString, 300);
     // Print string on the U8g2log window
     // Print a new line, scroll the text window content if required
     // Refresh the screen
     if (strcmp(incomingString, "TEST") == 0) {
-      u8g2log.print("Bluetooth disconnected... reconnecting\n");
+      //u8g2log.print("Bluetooth disconnected... reconnecting\n");
       Serial.write("A");
     }
     else if (strcmp(incomingString, "FONT1") == 0) {
@@ -119,11 +127,16 @@ void loop(void) {
         // finish that line
         //Serial.println();
         u8g2log.println();
+        lineCounter++;
+        if (lineCounter == lineScreenMax) {
+          lineCounter = 0;
+          delay(clearDisplayTime);
+        }
         
         // if we hit a space, move on past it
         if (*p == ' ')
           p++;
-      }
+        }
       //u8g2log.print(incomingString);
       //u8g2log.print("\n");
     }
@@ -132,16 +145,17 @@ void loop(void) {
 
   if (MyBlue.available() > 0) {
     // read the incoming byte:
-    MyBlue.readString().toCharArray(incomingString, 200);
+    MyBlue.readString().toCharArray(incomingString, 300);
+    lineCounter = 0;
     // Print string on the U8g2log window
     // Print a new line, scroll the text window content if required
     // Refresh the screen
     Serial.print(incomingString);
     Serial.println();
-    if (strcmp(incomingString, "TEST") == 0) {
-      u8g2log.print("Bluetooth disconnected... reconnecting\n");
+    
+    if (strcmp(incomingString, " ") == 0) {
+      //u8g2log.print("Bluetooth disconnected... reconnecting\n");
       MyBlue.write("A");
-      Serial.write("A");
     }
     else if (strcmp(incomingString, "FONT1") == 0) {
       changeFont(1);
@@ -171,16 +185,19 @@ void loop(void) {
         // finish that line
         //Serial.println();
         u8g2log.println();
+        lineCounter++;
+        if (lineCounter == lineScreenMax) {
+          lineCounter = 0;
+          delay(clearDisplayTime);
+        }
         
         // if we hit a space, move on past it
         if (*p == ' ')
           p++;
-      }
-      
+        }      
       //u8g2log.print(incomingString);
       //u8g2log.print("\n");
       MyBlue.write("A");
-      Serial.write("A");
     }
     passedTime = millis();
   }

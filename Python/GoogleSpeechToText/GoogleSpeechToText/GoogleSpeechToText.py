@@ -8,6 +8,10 @@ import io
 import serial
 import time
 
+# App settings
+USERNAME = "Jonathan"
+APP_MODE = True
+
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
 SAMPLE_RATE = 16000
@@ -22,7 +26,9 @@ def get_current_time():
 class ResumableMicrophoneStream:
     """Opens a recording stream as a generator yielding the audio chunks."""
 
-    def __init__(self, rate, chunk_size):
+    def __init__(self, rate, chunk_size, phone, bluetooth):
+        self.phone = phone
+        self.bluetooth = bluetooth
         self._rate = rate
         self.chunk_size = chunk_size
         self._num_channels = 1
@@ -93,6 +99,7 @@ class ResumableMicrophoneStream:
         """Stream Audio from microphone to API and to local buffer"""
 
         while not self.closed:
+            checkPhoneCommands(self.phone, self.bluetooth)
             data = []
 
             if self.new_stream and self.last_audio_input:
@@ -146,7 +153,7 @@ class ResumableMicrophoneStream:
             yield b"".join(data)
 
 
-def listen_print_loop(responses, stream, bluetooth):
+def listen_print_loop(responses, stream, bluetooth, phone):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -161,9 +168,7 @@ def listen_print_loop(responses, stream, bluetooth):
     the next result to overwrite it, until the response is a final one. For the
     final one, print a newline to preserve the finalized transcription.
     """
-
     for response in responses:
-
         if get_current_time() - stream.start_time > STREAMING_LIMIT:
             stream.start_time = get_current_time()
             break
@@ -204,14 +209,16 @@ def listen_print_loop(responses, stream, bluetooth):
             stream.last_transcript_was_final = True
 
             to_send = transcript
-
-            nameRecognition("Johnny", to_send, bluetooth)
+            
+            if APP_MODE == False:
+                alertRecognition(to_send, bluetooth)
+                nameRecognition(USERNAME, to_send, bluetooth)
 
             check = 0
             check += changeFont(to_send, bluetooth)
 
-            if check == 0:
-                sendToBluetooth(to_send, bluetooth)
+            if check == 0 and APP_MODE == True:
+                sendToBluetooth(to_send + "\n", bluetooth)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
@@ -225,6 +232,20 @@ def listen_print_loop(responses, stream, bluetooth):
 
             stream.last_transcript_was_final = False
 
+def connectToBluetooth():
+    bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
+
+    if bluetooth.isOpen():
+        print("Bluetooth port open")
+        print("Timeout: " + str(bluetooth.timeout))
+    else:
+        print("Bluetooth not connected")
+
+    bluetooth.write(b"Bluetooth connected\n")
+
+    checkBluetoothConnection(bluetooth)
+    return(bluetooth)
+
 def sendToBluetooth(to_send, bluetooth):
     to_send = to_send.lstrip(" ")
     bytes_to_send = bytes(to_send, 'utf-8')
@@ -233,77 +254,136 @@ def sendToBluetooth(to_send, bluetooth):
     #checkBluetoothConnection(bluetooth)
 
 def checkBluetoothConnection(bluetooth):
+    counter = 5
     if bluetooth.isOpen():
-        ACK = bluetooth.read()
-        print("Response: " + str(ACK))
-
-        if ACK == b'A':
-            print("Sent successfully\n")
-
-        elif ACK != b'A':
-            print("Bluetooth disconnected, retrying")
-            bluetooth.close()
-            time.sleep(2)
-            bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
-
-            bluetooth.write(b'TEST')
+        for retries in range(counter):
 
             ACK = bluetooth.read()
             print("Response: " + str(ACK))
 
             if ACK == b'A':
                 print("Sent successfully\n")
+                bluetooth.reset_input_buffer()
+                break
+
             elif ACK != b'A':
-                checkBluetoothConnection(bluetooth)
+                print("Retry: " + str(retries+1))
+
+                if retries == 4:
+                    print("Bluetooth disconnected, retrying")
+                    bluetooth.close()
+                    time.sleep(2)
+
+                    bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
+
+                    bluetooth.write(b' ')
+                    checkBluetoothConnection(bluetooth)
+                
+                if bluetooth.isOpen():
+                    bluetooth.write(b' ')
 
     else:
         print("Bluetooth disconnected, retrying")
         bluetooth.close()
         time.sleep(2)
-        bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
 
-        bluetooth.write(b'TEST')
-        ACK = bluetooth.read()
-        print("Response: " + str(ACK))
+        bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=0.1)
 
-        if ACK == b'A':
-            print("Sent successfully\n")
-        elif ACK != b'A':
-            checkBluetoothConnection(bluetooth)
+        if bluetooth.isOpen():
+            bluetooth.write(b'')
+        checkBluetoothConnection(bluetooth)
+
+def checkPhoneCommands(phone, bluetooth):
+    if phone.in_waiting > 0:
+        phone_command = phone.read(phone.in_waiting).decode("utf-8")
+        print(phone_command)
+        if '!FONT' in phone_command:
+            changeFont(phone_command, bluetooth)
+        if '!CHANGE' in phone_command:  
+            changeName(phone_command, bluetooth)
+        if '!ALERT' in phone_command:
+            conversationAlertMode(False, bluetooth)
+        if '!CONVO' in phone_command:
+            conversationAlertMode(True, bluetooth)
 
 def nameRecognition(name, transcript, bluetooth):
     if name in transcript:
         print("****NAME RECOGNIZED****")
-        sendToBluetooth("Your name has been mentioned", bluetooth)
+        sendToBluetooth("Your name has been mentioned\n", bluetooth)
+
+def alertRecognition(transcript, bluetooth):
+    transcript = transcript.lower()
+    if 'train' in transcript:
+        print("Train has been heard")
+        sendToBluetooth("Train: " + transcript, bluetooth)
+    if 'walk' in transcript:
+        print("Walk has been heard")
+        sendToBluetooth("Walk has been heard\n", bluetooth)
+    if 'fire' in transcript:
+        print("Fire has been heard")
+        sendToBluetooth("Fire has been heard\n", bluetooth)
+    if 'warning' in transcript:
+        print("Warning has been heard")
+        sendToBluetooth("Warning has been heard\n", bluetooth)
+    if 'alert' in transcript:
+        print("Alert has been heard")
+        sendToBluetooth("Alert has been heard\n", bluetooth)
+    if 'danger' in transcript:
+        print("Danger has been heard")
+        sendToBluetooth("Danger has been heard\n", bluetooth)
+
+def conversationAlertMode(mode, bluetooth):
+    global APP_MODE
+    APP_MODE = mode
+    if mode == True:
+        sendToBluetooth("Set to Conversation Mode\n", bluetooth)
+        print("Set to Conversation Mode")
+    elif mode == False:
+        sendToBluetooth("Set to Alert Mode\n", bluetooth)
+        print("Set to Alert Mode")
+
+def changeName(name, bluetooth):
+    global USERNAME
+    name = name.replace('!CHANGE', '', 1)
+    USERNAME = name
+    print("Changing name to " + name)
+    sendToBluetooth("Your name has been set to " + str(USERNAME) + "\n", bluetooth)
 
 def changeFont(transcript, bluetooth):
-    if "size 1" in transcript:
+    if "size 1" in transcript or '!FONT1' in transcript:
         print("Setting font size to " + str(1))
         sendToBluetooth("FONT"+str(1), bluetooth)
-    elif "size 2" in transcript:
+    elif "size 2" in transcript or '!FONT2' in transcript:
         print("Setting font size to " + str(2))
         sendToBluetooth("FONT"+str(2), bluetooth)
-    elif "size 3" in transcript:
+    elif "size 3" in transcript or '!FONT3' in transcript:
         print("Setting font size to " + str(3))
         sendToBluetooth("FONT"+str(3), bluetooth)
     else:
         return 0
     return 1
 
+def connectToPhone():
+    phone = serial.Serial('COM8', 38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=0)
+
+    if phone.isOpen():
+        print("Phone port open")
+        print("Timeout: " + str(phone.timeout))
+    else:
+        print("Phone not connected")
+
+    phone.write(b"Phone connected\n")
+    print("Phone connected successfully\n")
+
+    return(phone)
+
 def main():
     """start bidirectional streaming from microphone input to speech API"""
 
 #    bluetooth = 1
-    bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
-
-    if bluetooth.isOpen():
-        print("Bluetooth port open")
-    else:
-        print("Bluetooth not connected")
-
-    bluetooth.write(b"Bluetooth connected")
-
-    checkBluetoothConnection(bluetooth)
+#    phone = 1
+    bluetooth = connectToBluetooth()
+    phone = connectToPhone()
 
     client = speech.SpeechClient.from_service_account_json('credentials.json')
     config = speech.RecognitionConfig(
@@ -317,7 +397,7 @@ def main():
         config=config, interim_results=True
     )
 
-    mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE)
+    mic_manager = ResumableMicrophoneStream(SAMPLE_RATE, CHUNK_SIZE, phone, bluetooth)
     print("Mic manager chunk size: " + str(mic_manager.chunk_size))
     sys.stdout.write('\nListening, say "Exit now please" to stop.\n\n')
     sys.stdout.write("End (ms)       Transcript Results/Status\n")
@@ -337,11 +417,10 @@ def main():
                 speech.StreamingRecognizeRequest(audio_content=content)
                 for content in audio_generator
             )
-
             responses = client.streaming_recognize(streaming_config, requests)
 
             # Now, put the transcription responses to use.
-            listen_print_loop(responses, stream, bluetooth)
+            listen_print_loop(responses, stream, bluetooth, phone)
 
             if stream.result_end_time > 0:
                 stream.final_request_end_time = stream.is_final_end_time
@@ -356,6 +435,7 @@ def main():
             stream.new_stream = True
    
     bluetooth.close()
+    phone.close()
 
 if __name__ == "__main__":
     main()
