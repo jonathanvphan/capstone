@@ -9,7 +9,7 @@ import serial
 import time
 
 # App settings
-USERNAME = "Jonathan"
+USERNAME = "default name"
 APP_MODE = True
 
 # Audio recording parameters
@@ -52,14 +52,17 @@ class ResumableMicrophoneStream:
         numdevices = info.get('deviceCount')
         for i in range(0, numdevices):
                 if (self._audio_interface.get_device_info_by_host_api_device_index(0, i).get('maxInputChannels')) > 0:
-                    if "Logitech" in self._audio_interface.get_device_info_by_host_api_device_index(0, i).get('name'):
+                    if "Array" in self._audio_interface.get_device_info_by_host_api_device_index(0, i).get('name'):
+                        mic_index = i
+                        break
+                    elif "Logitech" in self._audio_interface.get_device_info_by_host_api_device_index(0, i).get('name'):
                         mic_index = i
                     #print ("Input Device id ", i, " - ", self._audio_interface.get_device_info_by_host_api_device_index(0, i).get('name'))
 
         if mic_index == 0:
             print("Using built-in mic")
         else:
-            print("Using Logitech mic")
+            print("Using " + str(self._audio_interface.get_device_info_by_host_api_device_index(0, mic_index).get('name')))
 
         self._audio_stream = self._audio_interface.open(
             format=pyaudio.paInt16,
@@ -220,8 +223,8 @@ def listen_print_loop(responses, stream, bluetooth, phone):
             if check == 0 and APP_MODE == True:
                 sendToBluetooth(to_send + "\n", bluetooth)
 
-            # Exit recognition if any of the transcribed phrases could be
-            # one of our keywords.
+             #Exit recognition if any of the transcribed phrases could be
+             #one of our keywords.
             if re.search(r"\b(exit now please)\b", transcript, re.I):
                 sys.stdout.write("Exiting...\n")
                 stream.closed = True
@@ -380,8 +383,8 @@ def connectToPhone():
 def main():
     """start bidirectional streaming from microphone input to speech API"""
 
-#    bluetooth = 1
-#    phone = 1
+    #bluetooth = 1
+    #phone = 1
     bluetooth = connectToBluetooth()
     phone = connectToPhone()
 

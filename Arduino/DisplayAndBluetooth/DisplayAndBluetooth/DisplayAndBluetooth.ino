@@ -48,7 +48,7 @@ void changeFont(int fontSize) {
   if (fontSize == 1) {
     fontWidthMax = 13;
     lineScreenMax = 16;
-    clearDisplayTime = 6000
+    clearDisplayTime = 6000;
     u8g2.setFont(u8g2_font_profont10_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH1, U8LOG_HEIGHT1, u8log_buffer1);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 1");
@@ -57,7 +57,7 @@ void changeFont(int fontSize) {
   else if (fontSize == 2) {
     fontWidthMax = 10;
     lineScreenMax = 13;
-    clearDisplayTime = 5000
+    clearDisplayTime = 5000;
     u8g2.setFont(u8g2_font_profont12_tf); // choose a suitable font
     u8g2log.begin(u8g2, U8LOG_WIDTH2, U8LOG_HEIGHT2, u8log_buffer2);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 2");
@@ -66,7 +66,7 @@ void changeFont(int fontSize) {
   else if (fontSize == 3) {
     fontWidthMax = 9;
     lineScreenMax = 12;
-    clearDisplayTime = 4000
+    clearDisplayTime = 4000;
     u8g2.setFont(u8g2_font_profont15_tf);
     u8g2log.begin(u8g2, U8LOG_WIDTH3, U8LOG_HEIGHT3, u8log_buffer3);  // connect to u8g2, assign buffer
     u8g2log.print("Font size set to 3");
