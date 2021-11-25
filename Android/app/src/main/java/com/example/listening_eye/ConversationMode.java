@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,8 @@ public class ConversationMode extends AppCompatActivity {
 
     static final UUID mUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    Button buttonON, buttonOFF;
+    //Button convoON, alertON;
+    EditText editNameBox;
     BluetoothAdapter btAdapter;
     Intent enableBluetoothIntent;
     int REQUEST_ENABLE_BT;
@@ -122,16 +124,23 @@ public class ConversationMode extends AppCompatActivity {
 //            startActivityForResult(enableBtIntent, requestCode);
 //        }
 
-        buttonON = findViewById(R.id.bluetoothOn);
-        buttonOFF = findViewById(R.id.bluetoothOff);
+//        convoON = findViewById(R.id.convoOn);
+//        alertON = findViewById(R.id.alertOn);
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         enableBluetoothIntent = new Intent(btAdapter.ACTION_REQUEST_ENABLE);
         REQUEST_ENABLE_BT = 1;
 
-        bluetoothOnMethod();
-        bluetoothOFFMethod();
 
-
+//        editNameBox = findViewById(R.id.editNameBox);
+//        String nameToBePicked = editNameBox.getText().toString();
+//        if (nameToBePicked != "") {
+//            Intent intent = new Intent(ConversationMode.this, Bluetooth.class);
+//            // String keyIdentifier = null;
+//            intent.putExtra(Intent.EXTRA_TEXT, nameToBePicked);
+//            startActivity(intent);
+//        }
+//        convoOnMethod();
+//        alertOnMethod();
 
 
 //        System.out.println(btAdapter.getBondedDevices());
@@ -228,33 +237,27 @@ public class ConversationMode extends AppCompatActivity {
         }
     }
 
-    private void bluetoothOnMethod() {
-        buttonON.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("BT ON CLICKED");
-                if(btAdapter == null) {
-                    System.out.println("Device does not support BT");
-                } else {
-                    if(!btAdapter.isEnabled()) {
-                        startActivityForResult(enableBluetoothIntent, REQUEST_ENABLE_BT);
-                    }
-                }
-            }
-        });
-    }
+//    private void convoOnMethod() {
+//        convoON.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                convoOnMSG = "!CONVO";
+//                System.out.println(convoOnMSG);
+//                Toast.makeText(getApplicationContext(), "Conversation Mode Turned On!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
-    private void bluetoothOFFMethod() {
-        buttonOFF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("BT OFF CLICKED");
-                if(btAdapter.isEnabled()) {
-                    btAdapter.disable();
-                }
-            }
-        });
-    }
+//    private void alertOnMethod() {
+//        alertON.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                convoOnMSG = "!ALERT";
+//                System.out.println(convoOnMSG);
+//                Toast.makeText(getApplicationContext(), "Alert Mode Turned On!", Toast.LENGTH_SHORT).show();
+//                }
+//        });
+//    }
 
 
 //    @Override
