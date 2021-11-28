@@ -11,6 +11,12 @@ import time
 # App settings
 USERNAME = "default name"
 APP_MODE = True
+TRAIN_ON = True
+WALK_ON = True
+FIRE_ON = True
+WARNING_ON = True
+ALERT_ON = True
+DANGER_ON = True
 
 # Audio recording parameters
 STREAMING_LIMIT = 240000  # 4 minutes
@@ -308,6 +314,36 @@ def checkPhoneCommands(phone, bluetooth):
             conversationAlertMode(False, bluetooth)
         if '!CONVO' in phone_command:
             conversationAlertMode(True, bluetooth)
+        if '!TRAIN' in phone_command:
+            if 'ON' in phone_command:
+                TRAIN_ON = True
+            if 'OFF' in phone_command:
+                TRAIN_ON = False
+        if '!WALK' in phone_command:
+            if 'ON' in phone_command:
+                WALK_ON = True
+            if 'OFF' in phone_command:
+                WALK_ON = False
+        if '!FIRE' in phone_command:
+            if 'ON' in phone_command:
+                FIRE_ON = True
+            if 'OFF' in phone_command:
+                FIRE_ON = False
+        if '!WARNING' in phone_command:
+            if 'ON' in phone_command:
+                WARNING_ON = True
+            if 'OFF' in phone_command:
+                WARNING_ON = False
+        if '!ALERT' in phone_command:
+            if 'ON' in phone_command:
+                ALERT_ON = True
+            if 'OFF' in phone_command:
+                ALERT_ON = False
+        if '!DANGER' in phone_command:
+            if 'ON' in phone_command:
+                DANGER_ON = True
+            if 'OFF' in phone_command:
+                DANGER_ON = False
 
 def nameRecognition(name, transcript, bluetooth):
     if name in transcript:
@@ -316,22 +352,22 @@ def nameRecognition(name, transcript, bluetooth):
 
 def alertRecognition(transcript, bluetooth):
     transcript = transcript.lower()
-    if 'train' in transcript:
+    if 'train' in transcript and TRAIN_ON == True:
         print("Train has been heard")
         sendToBluetooth("Train: " + transcript, bluetooth)
-    if 'walk' in transcript:
+    if 'walk' in transcript and WALK_ON == True:
         print("Walk has been heard")
         sendToBluetooth("Walk has been heard\n", bluetooth)
-    if 'fire' in transcript:
+    if 'fire' in transcript and FIRE_ON == True:
         print("Fire has been heard")
         sendToBluetooth("Fire has been heard\n", bluetooth)
-    if 'warning' in transcript:
+    if 'warning' in transcript and WARNING_ON == True:
         print("Warning has been heard")
         sendToBluetooth("Warning has been heard\n", bluetooth)
-    if 'alert' in transcript:
+    if 'alert' in transcript and ALERT_ON == True:
         print("Alert has been heard")
         sendToBluetooth("Alert has been heard\n", bluetooth)
-    if 'danger' in transcript:
+    if 'danger' in transcript and DANGER_ON == True:
         print("Danger has been heard")
         sendToBluetooth("Danger has been heard\n", bluetooth)
 
