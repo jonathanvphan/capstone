@@ -2,22 +2,27 @@ package com.example.listening_eye;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +32,13 @@ import java.util.UUID;
 
 public class Bluetooth extends AppCompatActivity {
 
-    Button listen, listDevices, send;
+    private static final String FILE_NAME = "audioText.txt";
+    private String nameToBePicked;
+
+    private nameViewModel viewModel;
+    //TextView nameChanged;
+
+    Button listen, listDevices, send, font1, font2, font3, convoOn, alertOn;
     ListView listView;
     TextView status, msg_box;
     EditText writeMsg;
@@ -47,6 +58,7 @@ public class Bluetooth extends AppCompatActivity {
 
     private static final String APP_NAME = "BTChat";
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,14 @@ public class Bluetooth extends AppCompatActivity {
 
         findViewByIdes();
 
+        //ViewModel logic
+        viewModel = new ViewModelProvider(this).get(nameViewModel.class);
+        viewModel.getSelectedName().observe(this, item ->{
+            System.out.println("from bluetooth.java"+item);
+            String nameMsg = "!CHANGE" + item;
+            sendReceive.write(nameMsg.getBytes());
+            //nameChanged.setText(item);
+        });
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (!btAdapter.isEnabled()) {
@@ -62,7 +82,9 @@ public class Bluetooth extends AppCompatActivity {
         }
 
         implementListeners();
+
     }
+
 
     private void implementListeners() {
         listDevices.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +92,7 @@ public class Bluetooth extends AppCompatActivity {
             public void onClick(View v) {
                 Set<BluetoothDevice> bt = btAdapter.getBondedDevices();
                 String[] strings = new String[bt.size()];
-                btArray=new BluetoothDevice[bt.size()];
+                btArray = new BluetoothDevice[bt.size()];
                 int index = 0;
 
                 if (bt.size() > 0) {
@@ -104,6 +126,51 @@ public class Bluetooth extends AppCompatActivity {
             }
         });
 
+        font1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Changing to Font 1", Toast.LENGTH_SHORT);
+                String string = "FONT1";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        font2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Changing to Font 2", Toast.LENGTH_SHORT);
+                String string = "FONT2";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        font3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Changing to Font 3", Toast.LENGTH_SHORT);
+                String string = "FONT3";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        convoOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Turning On Conversation Mode", Toast.LENGTH_SHORT);
+                String string = "!CONVO";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        alertOn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Turning On Alert Mode", Toast.LENGTH_SHORT);
+                String string = "!ALERT";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +178,8 @@ public class Bluetooth extends AppCompatActivity {
                 sendReceive.write(string.getBytes());
             }
         });
+
+
     }
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -147,13 +216,22 @@ public class Bluetooth extends AppCompatActivity {
         status = findViewById(R.id.status);
         msg_box = findViewById(R.id.messageDisplay);
         writeMsg = findViewById(R.id.messageWrite);
+        //writeMsg.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(writeMsg, InputMethodManager.SHOW_IMPLICIT);
+        font1 = findViewById(R.id.font1);
+        font2 = findViewById(R.id.font2);
+        font3 = findViewById(R.id.font3);
+        convoOn = findViewById(R.id.convoOn);
+        alertOn = findViewById(R.id.alertOn);
     }
 
     private class ServerClass extends Thread {
         private BluetoothServerSocket serverSocket;
+
         public ServerClass() {
             try {
-                serverSocket=btAdapter.listenUsingRfcommWithServiceRecord(APP_NAME, MY_UUID);
+                serverSocket = btAdapter.listenUsingRfcommWithServiceRecord(APP_NAME, MY_UUID);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -165,19 +243,19 @@ public class Bluetooth extends AppCompatActivity {
             while (socket == null) {
                 try {
                     Message message = Message.obtain();
-                    message.what=STATE_CONNECTING;
+                    message.what = STATE_CONNECTING;
                     handler.sendMessage(message);
-                    socket=serverSocket.accept();
+                    socket = serverSocket.accept();
                 } catch (IOException e) {
                     e.printStackTrace();
                     Message message = Message.obtain();
-                    message.what=STATE_CONNECTION_FAILED;
+                    message.what = STATE_CONNECTION_FAILED;
                     handler.sendMessage(message);
                 }
 
-                if(socket!=null) {
+                if (socket != null) {
                     Message message = Message.obtain();
-                    message.what=STATE_CONNECTED;
+                    message.what = STATE_CONNECTED;
                     handler.sendMessage(message);
 
                     sendReceive = new SendReceive(socket);
@@ -206,7 +284,7 @@ public class Bluetooth extends AppCompatActivity {
             try {
                 socket.connect();
                 Message message = Message.obtain();
-                message.what=STATE_CONNECTED;
+                message.what = STATE_CONNECTED;
                 handler.sendMessage(message);
 
                 sendReceive = new SendReceive(socket);
@@ -214,7 +292,7 @@ public class Bluetooth extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
                 Message message = Message.obtain();
-                message.what=STATE_CONNECTION_FAILED;
+                message.what = STATE_CONNECTION_FAILED;
                 handler.sendMessage(message);
             }
         }
@@ -245,7 +323,7 @@ public class Bluetooth extends AppCompatActivity {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while(true) {
+            while (true) {
                 try {
                     bytes = inputStream.read(buffer);
                     handler.obtainMessage(STATE_MESSAGE_RECEIVED, bytes, -1, buffer).sendToTarget();
@@ -262,5 +340,9 @@ public class Bluetooth extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+
     }
+
+
 }
