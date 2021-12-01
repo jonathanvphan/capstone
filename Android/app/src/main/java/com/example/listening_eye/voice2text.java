@@ -1,9 +1,14 @@
 package com.example.listening_eye;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,8 +59,12 @@ import com.google.cloud.speech.v1.WordInfo;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.ByteString;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -73,40 +82,123 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class voice2text extends AppCompatActivity {
+    private static final String FILE_NAME = "convotext.txt";
+    private nameViewModel viewModel;
+    String resultText = "";
 
+    public static final String LAST_TEXT = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice2text);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 //        String filenameTest="src/credential.json";
 //        Path pathToFile = Paths.get(filenameTest);
 //        System.out.println(pathToFile.toAbsolutePath());
 
-        String credentialPath = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json";
+//        String credentialPath = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json";
 
-        Button testButton = findViewById(R.id.testButton);
+        //Button testButton = findViewById(R.id.testButton);
 //        Environment GOOGLE_APPLICATION_CREDENTIALS = "/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json";
 //        try {
 //            authExplicit("/Users/michaelyan/AndroidStudioProjects/Listening_Eye/app/src/main/res/raw/credential.json");
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        testButton.setOnClickListener(new View.OnClickListener() {
+//        testButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    streamingRecognizeFile(credentialPath);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+        //clickDisplayButton = findViewById(R.id.clickDisplayButton);
+        TextView conversionTextbox = findViewById(R.id.conversion_text);
+        viewModel = new ViewModelProvider(this).get(nameViewModel.class);
+
+        viewModel.getSelectedName().observe(this, item -> {
+            for(int i = 0; i < item.size(); i++) {
+                resultText = resultText.concat(item.get(i));
+            }
+            conversionTextbox.setText(resultText);
+            //resultText = item;
+        });
+
+        final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        conversionTextbox.setText(pref.getString(LAST_TEXT, ""));
+        conversionTextbox.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                try {
-                    streamingRecognizeFile(credentialPath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                pref.edit().putString(LAST_TEXT, s.toString()).commit();
             }
         });
-//        TextView conversionTextbox = findViewById(R.id.conversion_text);
-//        conversionTextbox.setText();
+        //conversionTextbox.setText(item);
 
+//        viewModel.getSelectedName().observe(this, item -> {
+//            resultText = item;
+//        });
+//        FileOutputStream fos = null;
+//        try {
+//            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
+//            fos.write(resultText.getBytes());
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (fos != null) {
+//                try {
+//                    fos.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+
+
+        //conversionTextbox.setText(resultText);
+        //clickDisplayButton.setVisibility(View.INVISIBLE);
+//        FileInputStream fis = null;
+//        try {
+//            fis = openFileInput(FILE_NAME);
+//            InputStreamReader isr = new InputStreamReader(fis);
+//            BufferedReader br = new BufferedReader(isr);
+//            StringBuilder sb = new StringBuilder();
+//            String text;
+//
+//            while ((text = br.readLine()) != null) {
+//                sb.append(text).append("\n");
+//            }
+//            conversionTextbox.setText(sb.toString());
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (fis != null) {
+//                try {
+//                    fis.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+
+
+        //conversionTextbox.setText(item);
     }
 
 
@@ -157,135 +249,135 @@ public class voice2text extends AppCompatActivity {
 //        }
 //    }
 
-    /**
-     * Performs streaming speech recognition on raw PCM audio data.
-     *
-     * @param fileName the path to a PCM audio file to transcribe.
-     */
-    public static void streamingRecognizeFile(String fileName) throws Exception, IOException {
-//        Path path = Paths.get(fileName);
-//        System.out.println(Files.exists(path));
-//        System.out.println(Files.notExists(path));
-        File f = new File(fileName);
-        System.out.println(f.getAbsoluteFile());
-        System.out.println(fileName);
-        Path path = Paths.get(f.getAbsolutePath());
-        System.out.println(path.getFileName());
-        System.out.println(path.toUri());
-        byte[] data = Files.readAllBytes(path);
-        System.out.println(data);
-
-
-
-        FileInputStream credentialsStream = new FileInputStream(fileName);
-        GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream);
-        FixedCredentialsProvider credentialsProvider = FixedCredentialsProvider.create(credentials);
-
-        SpeechSettings speechSettings =
-                SpeechSettings.newBuilder()
-                        .setCredentialsProvider(credentialsProvider)
-                        .build();
-
-
-        // Instantiates a client with GOOGLE_APPLICATION_CREDENTIALS
-        try (SpeechClient speech = SpeechClient.create(speechSettings)) {
-            System.out.println("printed succes");
-            // Configure request with local raw PCM audio
-            RecognitionConfig recConfig =
-                    RecognitionConfig.newBuilder()
-                            .setEncoding(AudioEncoding.LINEAR16)
-                            .setLanguageCode("en-US")
-                            .setSampleRateHertz(16000)
-                            .setModel("default")
-                            .build();
-            StreamingRecognitionConfig config =
-                    StreamingRecognitionConfig.newBuilder().setConfig(recConfig).build();
-
-            class ResponseApiStreamingObserver<T> implements ApiStreamObserver<T> {
-                private final SettableFuture<List<T>> future = SettableFuture.create();
-                private final List<T> messages = new java.util.ArrayList<T>();
-
-                @Override
-                public void onNext(T message) {
-                    messages.add(message);
-                }
-
-                @Override
-                public void onError(Throwable t) {
-                    future.setException(t);
-                }
-
-                @Override
-                public void onCompleted() {
-                    future.set(messages);
-                }
-
-                // Returns the SettableFuture object to get received messages / exceptions.
-                public SettableFuture<List<T>> future() {
-                    return future;
-                }
-            }
-
-            ResponseApiStreamingObserver<StreamingRecognizeResponse> responseObserver =
-                    new ResponseApiStreamingObserver<>();
-
-            BidiStreamingCallable<StreamingRecognizeRequest, StreamingRecognizeResponse> callable =
-                    speech.streamingRecognizeCallable();
-
-            ApiStreamObserver<StreamingRecognizeRequest> requestObserver =
-                    callable.bidiStreamingCall(responseObserver);
-
-            // The first request must **only** contain the audio configuration:
-            requestObserver.onNext(
-                    StreamingRecognizeRequest.newBuilder().setStreamingConfig(config).build());
-
-            // Subsequent requests must **only** contain the audio data.
-            requestObserver.onNext(
-                    StreamingRecognizeRequest.newBuilder()
-                            .setAudioContent(ByteString.copyFrom(data))
-                            .build());
-
-            // Mark transmission as completed after sending the data.
-            requestObserver.onCompleted();
-
-            List<StreamingRecognizeResponse> responses = responseObserver.future().get();
-
-            for (StreamingRecognizeResponse response : responses) {
-                // For streaming recognize, the results list has one is_final result (if available) followed
-                // by a number of in-progress results (if iterim_results is true) for subsequent utterances.
-                // Just print the first result here.
-                StreamingRecognitionResult result = response.getResultsList().get(0);
-                // There can be several alternative transcripts for a given chunk of speech. Just use the
-                // first (most likely) one here.
-                SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
-                System.out.printf("Transcript : %s\n", alternative.getTranscript());
-            }
-        }
-    }
-
-    static void authExplicit(String jsonPath) throws IOException {
-        // You can specify a credential file by providing a path to GoogleCredentials.
-        // Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS environment variable.
-        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath))
-                .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
-        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-
-        System.out.println("Buckets:");
-        Page<Bucket> buckets = storage.list();
-        for (Bucket bucket : buckets.iterateAll()) {
-            System.out.println(bucket.toString());
-        }
-    }
-
-    static void authImplicit() {
-        // If you don't specify credentials when constructing the client, the client library will
-        // look for credentials via the environment variable GOOGLE_APPLICATION_CREDENTIALS.
-        Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        System.out.println("Buckets:");
-        Page<Bucket> buckets = storage.list();
-        for (Bucket bucket : buckets.iterateAll()) {
-            System.out.println(bucket.toString());
-        }
-    }
+//    /**
+//     * Performs streaming speech recognition on raw PCM audio data.
+//     *
+//     * @param fileName the path to a PCM audio file to transcribe.
+//     */
+//    public static void streamingRecognizeFile(String fileName) throws Exception, IOException {
+////        Path path = Paths.get(fileName);
+////        System.out.println(Files.exists(path));
+////        System.out.println(Files.notExists(path));
+//        File f = new File(fileName);
+//        System.out.println(f.getAbsoluteFile());
+//        System.out.println(fileName);
+//        Path path = Paths.get(f.getAbsolutePath());
+//        System.out.println(path.getFileName());
+//        System.out.println(path.toUri());
+//        byte[] data = Files.readAllBytes(path);
+//        System.out.println(data);
+//
+//
+//
+//        FileInputStream credentialsStream = new FileInputStream(fileName);
+//        GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream);
+//        FixedCredentialsProvider credentialsProvider = FixedCredentialsProvider.create(credentials);
+//
+//        SpeechSettings speechSettings =
+//                SpeechSettings.newBuilder()
+//                        .setCredentialsProvider(credentialsProvider)
+//                        .build();
+//
+//
+//        // Instantiates a client with GOOGLE_APPLICATION_CREDENTIALS
+//        try (SpeechClient speech = SpeechClient.create(speechSettings)) {
+//            System.out.println("printed succes");
+//            // Configure request with local raw PCM audio
+//            RecognitionConfig recConfig =
+//                    RecognitionConfig.newBuilder()
+//                            .setEncoding(AudioEncoding.LINEAR16)
+//                            .setLanguageCode("en-US")
+//                            .setSampleRateHertz(16000)
+//                            .setModel("default")
+//                            .build();
+//            StreamingRecognitionConfig config =
+//                    StreamingRecognitionConfig.newBuilder().setConfig(recConfig).build();
+//
+//            class ResponseApiStreamingObserver<T> implements ApiStreamObserver<T> {
+//                private final SettableFuture<List<T>> future = SettableFuture.create();
+//                private final List<T> messages = new java.util.ArrayList<T>();
+//
+//                @Override
+//                public void onNext(T message) {
+//                    messages.add(message);
+//                }
+//
+//                @Override
+//                public void onError(Throwable t) {
+//                    future.setException(t);
+//                }
+//
+//                @Override
+//                public void onCompleted() {
+//                    future.set(messages);
+//                }
+//
+//                // Returns the SettableFuture object to get received messages / exceptions.
+//                public SettableFuture<List<T>> future() {
+//                    return future;
+//                }
+//            }
+//
+//            ResponseApiStreamingObserver<StreamingRecognizeResponse> responseObserver =
+//                    new ResponseApiStreamingObserver<>();
+//
+//            BidiStreamingCallable<StreamingRecognizeRequest, StreamingRecognizeResponse> callable =
+//                    speech.streamingRecognizeCallable();
+//
+//            ApiStreamObserver<StreamingRecognizeRequest> requestObserver =
+//                    callable.bidiStreamingCall(responseObserver);
+//
+//            // The first request must **only** contain the audio configuration:
+//            requestObserver.onNext(
+//                    StreamingRecognizeRequest.newBuilder().setStreamingConfig(config).build());
+//
+//            // Subsequent requests must **only** contain the audio data.
+//            requestObserver.onNext(
+//                    StreamingRecognizeRequest.newBuilder()
+//                            .setAudioContent(ByteString.copyFrom(data))
+//                            .build());
+//
+//            // Mark transmission as completed after sending the data.
+//            requestObserver.onCompleted();
+//
+//            List<StreamingRecognizeResponse> responses = responseObserver.future().get();
+//
+//            for (StreamingRecognizeResponse response : responses) {
+//                // For streaming recognize, the results list has one is_final result (if available) followed
+//                // by a number of in-progress results (if iterim_results is true) for subsequent utterances.
+//                // Just print the first result here.
+//                StreamingRecognitionResult result = response.getResultsList().get(0);
+//                // There can be several alternative transcripts for a given chunk of speech. Just use the
+//                // first (most likely) one here.
+//                SpeechRecognitionAlternative alternative = result.getAlternativesList().get(0);
+//                System.out.printf("Transcript : %s\n", alternative.getTranscript());
+//            }
+//        }
+//    }
+//
+//    static void authExplicit(String jsonPath) throws IOException {
+//        // You can specify a credential file by providing a path to GoogleCredentials.
+//        // Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS environment variable.
+//        GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath))
+//                .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
+//        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+//
+//        System.out.println("Buckets:");
+//        Page<Bucket> buckets = storage.list();
+//        for (Bucket bucket : buckets.iterateAll()) {
+//            System.out.println(bucket.toString());
+//        }
+//    }
+//
+//    static void authImplicit() {
+//        // If you don't specify credentials when constructing the client, the client library will
+//        // look for credentials via the environment variable GOOGLE_APPLICATION_CREDENTIALS.
+//        Storage storage = StorageOptions.getDefaultInstance().getService();
+//
+//        System.out.println("Buckets:");
+//        Page<Bucket> buckets = storage.list();
+//        for (Bucket bucket : buckets.iterateAll()) {
+//            System.out.println(bucket.toString());
+//        }
+//    }
 }

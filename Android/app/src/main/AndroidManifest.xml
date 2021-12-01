@@ -22,6 +22,7 @@
         android:name="android.permission.ACCESS_FINE_LOCATION"
         android:maxSdkVersion="31" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -41,12 +42,10 @@
             android:exported="true" />
         <activity
             android:name=".translation"
-            android:exported="true"
-            android:parentActivityName=".ConversationMode" />
+            android:exported="true"/>
         <activity
             android:name=".voice2text"
-            android:exported="true"
-            android:parentActivityName=".ConversationMode" />
+            android:exported="true"/>
         <activity
             android:name=".ConversationMode"
             android:exported="true" />

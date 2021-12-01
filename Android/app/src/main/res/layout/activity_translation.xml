@@ -46,12 +46,7 @@
             android:layout_height="365dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="
-        This is an example text generated using Google Translation API.\n
-        \n
-        He as compliment unreserved projecting. Between had observe pretend delight for believe. Do newspaper questions consulted sweetness do. Our sportsman his unwilling fulfilled departure law. Now world own total saved above her cause table. Wicket myself her square remark the should far secure sex. Smiling cousins warrant law explain for whether. \n
-        \n
-        An country demesne message it. Bachelor domestic extended doubtful as concerns at. Morning prudent removal an letters by. On could my in order never it. Or excited certain sixteen it to parties colonel. Depending conveying direction has led immediate. Law gate her well bed life feet seen rent. On nature or no except it sussex."
+            android:text=""
             android:textColor="#000"
             android:textSize="20sp"
             tools:layout_editor_absoluteX="32dp"

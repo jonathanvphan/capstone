@@ -36,9 +36,16 @@ public class Bluetooth extends AppCompatActivity {
     private String nameToBePicked;
 
     private nameViewModel viewModel;
-    //TextView nameChanged;
+    private trainViewModel viewModelTrain;
+    private walkViewModel viewModelWalk;
+    private fireViewModel viewModelFire;
+    private warningViewModel viewModelWarning;
+    private alertViewModel viewModelAlert;
+    private dangerViewModel viewModelDanger;
 
-    Button listen, listDevices, send, font1, font2, font3, convoOn, alertOn;
+    TextView testNameChange, testSwitchCommand;
+
+    Button listen, listDevices, send, font1, font2, font3, convoOn, alertOn, testNavi;
     ListView listView;
     TextView status, msg_box;
     EditText writeMsg;
@@ -66,14 +73,6 @@ public class Bluetooth extends AppCompatActivity {
 
         findViewByIdes();
 
-        //ViewModel logic
-        viewModel = new ViewModelProvider(this).get(nameViewModel.class);
-        viewModel.getSelectedName().observe(this, item ->{
-            System.out.println("from bluetooth.java"+item);
-            String nameMsg = "!CHANGE" + item;
-            sendReceive.write(nameMsg.getBytes());
-            //nameChanged.setText(item);
-        });
         btAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if (!btAdapter.isEnabled()) {
@@ -83,6 +82,54 @@ public class Bluetooth extends AppCompatActivity {
 
         implementListeners();
 
+        testNavi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Bluetooth.this, ConversationMode.class);
+                // getApplicationContext()
+                startActivity(intent);
+            }
+        });
+
+        //ViewModel logic
+        viewModel = new ViewModelProvider(this).get(nameViewModel.class);
+        viewModel.getSelectedName().observe(this, item -> {
+            System.out.println("from bluetooth.java" + item);
+            String nameMsg = "!CHANGE" + item;
+            //sendReceive.write(nameMsg.getBytes());
+            System.out.println(nameMsg);
+            testNameChange.setText(nameMsg);
+        });
+        viewModelTrain = new ViewModelProvider(this).get(trainViewModel.class);
+        viewModelTrain.getSelectedTrain().observe(this, train -> {
+            //sendReceive.write(train.getBytes());
+            testSwitchCommand.setText(train);
+        });
+        viewModelWalk = new ViewModelProvider(this).get(walkViewModel.class);
+        viewModelWalk.getSelectedWalk().observe(this, walk -> {
+            sendReceive.write(walk.getBytes());
+            //testSwitchCommand.setText(walk);
+        });
+        viewModelFire = new ViewModelProvider(this).get(fireViewModel.class);
+        viewModelFire.getSelectedFire().observe(this, fire -> {
+            sendReceive.write(fire.getBytes());
+            //testSwitchCommand.setText(fire);
+        });
+        viewModelWarning = new ViewModelProvider(this).get(warningViewModel.class);
+        viewModelWarning.getSelectedWarning().observe(this, warning -> {
+            sendReceive.write(warning.getBytes());
+            //testSwitchCommand.setText(warning);
+        });
+        viewModelAlert = new ViewModelProvider(this).get(alertViewModel.class);
+        viewModelAlert.getSelectedAlert().observe(this, alert -> {
+            sendReceive.write(alert.getBytes());
+            //testSwitchCommand.setText(alert);
+        });
+        viewModelDanger = new ViewModelProvider(this).get(dangerViewModel.class);
+        viewModelDanger.getSelectedDanger().observe(this, danger -> {
+            sendReceive.write(danger.getBytes());
+            //testSwitchCommand.setText(danger);
+        });
     }
 
 
@@ -121,6 +168,7 @@ public class Bluetooth extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ClientClass clientClass = new ClientClass(btArray[position]);
                 clientClass.start();
+                System.out.println("this is the device connected" + btArray[position]);
 
                 status.setText("Connecting");
             }
@@ -224,6 +272,9 @@ public class Bluetooth extends AppCompatActivity {
         font3 = findViewById(R.id.font3);
         convoOn = findViewById(R.id.convoOn);
         alertOn = findViewById(R.id.alertOn);
+        testNameChange = findViewById(R.id.testNameChange);
+        testSwitchCommand = findViewById(R.id.testSwitchCommand);
+        testNavi = findViewById(R.id.testNavi);
     }
 
     private class ServerClass extends Thread {

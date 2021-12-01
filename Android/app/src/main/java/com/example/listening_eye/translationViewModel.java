@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
-public class nameViewModel extends ViewModel {
+public class translationViewModel extends ViewModel {
     private static final MutableLiveData<ArrayList<String>> selectedName = new MutableLiveData<ArrayList<String>>();
     public void setData(ArrayList<String> name) {
         System.out.println("setData from viewmodel"+name);
