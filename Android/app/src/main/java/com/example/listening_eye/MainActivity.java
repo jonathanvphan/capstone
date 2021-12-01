@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         Boolean authenticate = dbHelper.checkUsernamePassword(userName, passWord);
                         if (authenticate) {
                             Toast.makeText(MainActivity.this, "Logged in Successfully.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, Menu.class);
+                            Intent intent = new Intent(MainActivity.this, ConversationMode.class);
                             // getApplicationContext()
                             startActivity(intent);
                         } else {
