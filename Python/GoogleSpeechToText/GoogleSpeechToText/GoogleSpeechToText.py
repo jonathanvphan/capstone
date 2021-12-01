@@ -1,5 +1,6 @@
 from __future__ import division
 from google.cloud import speech
+from google.cloud import translate_v2 as translate
 from six.moves import queue
 import re
 import sys
@@ -7,10 +8,12 @@ import pyaudio
 import io
 import serial
 import time
+import six
 
 # App settings
 USERNAME = "default name"
 APP_MODE = True
+TRANS_MODE = False
 TRAIN_ON = True
 WALK_ON = True
 FIRE_ON = True
@@ -222,12 +225,17 @@ def listen_print_loop(responses, stream, bluetooth, phone):
             if APP_MODE == False:
                 alertRecognition(to_send, bluetooth)
                 nameRecognition(USERNAME, to_send, bluetooth)
+                alertRecognition(to_send, phone)
+                nameRecognition(USERNAME, to_send, phone)
 
             check = 0
             check += changeFont(to_send, bluetooth)
 
             if check == 0 and APP_MODE == True:
                 sendToBluetooth(to_send + "\n", bluetooth)
+                sendToBluetooth(to_send + "\n", phone)
+                if TRANS_MODE == True:
+                    translate_text('es', to_send, phone)
 
              #Exit recognition if any of the transcribed phrases could be
              #one of our keywords.
@@ -241,18 +249,37 @@ def listen_print_loop(responses, stream, bluetooth, phone):
 
             stream.last_transcript_was_final = False
 
+def translate_text(target, text, phone):
+    """Translates text into the target language.
+
+    Target must be an ISO 639-1 language code.
+    See https://g.co/cloud/translate/v2/translate-reference#supported_languages
+    """
+
+    translate_client = translate.Client.from_service_account_json('credentials.json')
+
+    if isinstance(text, six.binary_type):
+        text = text.decode("utf-8")
+
+    # Text can also be a sequence of strings, in which case this method
+    # will return a sequence of results for each text.
+    result = translate_client.translate(text, target_language=target)
+
+    #print(u"Text: {}".format(result["input"]))
+    print(u"Translation: {}".format(result["translatedText"]))
+    #print(u"Detected source language: {}".format(result["detectedSourceLanguage"]))
+    sendToBluetooth(result["translatedText"] + "\n", phone)
+
 def connectToBluetooth():
     bluetooth = serial.Serial('COM6', 4800, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE, timeout=3)
 
     if bluetooth.isOpen():
         print("Bluetooth port open")
-        print("Timeout: " + str(bluetooth.timeout))
     else:
         print("Bluetooth not connected")
 
     bluetooth.write(b"Bluetooth connected\n")
 
-    checkBluetoothConnection(bluetooth)
     return(bluetooth)
 
 def sendToBluetooth(to_send, bluetooth):
@@ -303,6 +330,7 @@ def checkBluetoothConnection(bluetooth):
         checkBluetoothConnection(bluetooth)
 
 def checkPhoneCommands(phone, bluetooth):
+    global TRANS_MODE
     if phone.in_waiting > 0:
         phone_command = phone.read(phone.in_waiting).decode("utf-8")
         print(phone_command)
@@ -310,40 +338,56 @@ def checkPhoneCommands(phone, bluetooth):
             changeFont(phone_command, bluetooth)
         if '!CHANGE' in phone_command:  
             changeName(phone_command, bluetooth)
-        if '!ALERT' in phone_command:
+        if '!ALERTMODE' in phone_command:
             conversationAlertMode(False, bluetooth)
-        if '!CONVO' in phone_command:
+        if '!CONVOMODE' in phone_command:
+            TRANS_MODE = False
             conversationAlertMode(True, bluetooth)
+        if '!TRANSMODE' in phone_command:
+            print("Translation Mode on")
+            TRANS_MODE = True
         if '!TRAIN' in phone_command:
             if 'ON' in phone_command:
                 TRAIN_ON = True
+                print("Train alerts on")
             if 'OFF' in phone_command:
                 TRAIN_ON = False
+                print("Train alerts off")
         if '!WALK' in phone_command:
             if 'ON' in phone_command:
                 WALK_ON = True
+                print("Walk alerts on")
             if 'OFF' in phone_command:
                 WALK_ON = False
+                print("Walk alerts off")
         if '!FIRE' in phone_command:
             if 'ON' in phone_command:
                 FIRE_ON = True
+                print("Fire alerts on")
             if 'OFF' in phone_command:
                 FIRE_ON = False
+                print("Fire alerts off")
         if '!WARNING' in phone_command:
             if 'ON' in phone_command:
                 WARNING_ON = True
+                print("Warning alerts on")
             if 'OFF' in phone_command:
                 WARNING_ON = False
+                print("Warning alerts off")
         if '!ALERT' in phone_command:
             if 'ON' in phone_command:
                 ALERT_ON = True
+                print("Alert alerts on")
             if 'OFF' in phone_command:
                 ALERT_ON = False
+                print("Alert alerts off")
         if '!DANGER' in phone_command:
             if 'ON' in phone_command:
                 DANGER_ON = True
+                print("Danger alerts on")
             if 'OFF' in phone_command:
                 DANGER_ON = False
+                print("Danger alerts off")
 
 def nameRecognition(name, transcript, bluetooth):
     if name in transcript:
@@ -407,11 +451,9 @@ def connectToPhone():
 
     if phone.isOpen():
         print("Phone port open")
-        print("Timeout: " + str(phone.timeout))
     else:
         print("Phone not connected")
 
-    phone.write(b"Phone connected\n")
     print("Phone connected successfully\n")
 
     return(phone)
