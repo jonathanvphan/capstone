@@ -192,7 +192,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Changing to Font 1", Toast.LENGTH_SHORT).show();
-                String string = "FONT1";
+                String string = "!FONT1";
                 sendReceive.write(string.getBytes());
             }
         });
@@ -201,7 +201,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Changing to Font 2", Toast.LENGTH_SHORT).show();
-                String string = "FONT2";
+                String string = "!FONT2";
                 sendReceive.write(string.getBytes());
             }
         });
@@ -210,7 +210,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Changing to Font 3", Toast.LENGTH_SHORT).show();
-                String string = "FONT3";
+                String string = "!FONT3";
                 sendReceive.write(string.getBytes());
             }
         });
