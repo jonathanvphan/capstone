@@ -63,39 +63,12 @@
         app:fabCustomSize="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.273"
+        app:layout_constraintVertical_bias="0.427"
         app:maxImageSize="110dp"
         app:tint="@color/white" />
-
-    <EditText
-        android:id="@+id/editNameBox"
-        android:layout_width="146dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Reset Name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.902"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <Button
-        android:id="@+id/nameResetConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm Reset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/editNameBox"
-        app:layout_constraintVertical_bias="0.176" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/alertSwitch"
@@ -107,18 +80,58 @@
         app:layout_constraintStart_toEndOf="@+id/walkSwitch"
         app:layout_constraintTop_toBottomOf="@+id/warningSwitch" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/name_picked_up"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:backgroundTint="#03A9F4"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_name_picked"
+        app:fabCustomSize="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toEndOf="@+id/hazardous"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427"
+        app:maxImageSize="80dp"
+        app:tint="@color/white" />
+
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         android:text="Hazardous Situation"
         android:textColor="#000"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hazardous" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/walkSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Walk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trainSwitch" />
+
+    <Button
+        android:id="@+id/nameResetConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/editNameBox"
+        app:layout_constraintVertical_bias="0.265" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/warningSwitch"
@@ -134,8 +147,8 @@
         android:id="@+id/textView11"
         android:layout_width="148dp"
         android:layout_height="37dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="Name Called"
         android:textColor="#000"
@@ -153,16 +166,6 @@
         android:text="Train"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/walkSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Walk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trainSwitch" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/fireSwitch"
@@ -184,48 +187,43 @@
         app:layout_constraintStart_toEndOf="@+id/fireSwitch"
         app:layout_constraintTop_toBottomOf="@+id/alertSwitch" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/name_picked_up"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:backgroundTint="#03A9F4"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_name_picked"
-        app:fabCustomSize="88dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/editNameBox"
+        android:layout_width="146dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Reset Name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
-        app:layout_constraintStart_toEndOf="@+id/hazardous"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.273"
-        app:maxImageSize="80dp"
-        app:tint="@color/white" />
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Button
         android:id="@+id/alertOnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:text="ALERT MODE ON"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btConnectAlert"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.278" />
 
     <Button
         android:id="@+id/btConnectAlert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect Bluetooth"
+        android:text="BT ON"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.049" />
 
     <Button
         android:id="@+id/alertBTOff"
@@ -234,10 +232,44 @@
         android:text="BT OFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049" />
+
+    <Button
+        android:id="@+id/alertFont2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159" />
+
+    <Button
+        android:id="@+id/alertFont1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/alertFont2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btConnectAlert"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.046" />
+
+    <Button
+        android:id="@+id/alertFont3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/alertFont2"
+        app:layout_constraintTop_toBottomOf="@+id/alertBTOff"
+        app:layout_constraintVertical_bias="0.046" />
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/hazardous_edit"-->

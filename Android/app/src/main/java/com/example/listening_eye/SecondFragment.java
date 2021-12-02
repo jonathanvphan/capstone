@@ -48,7 +48,7 @@ public class SecondFragment extends Fragment {
     ArrayList<String> resultTextArray = new ArrayList<String>();
     translationViewModel viewModel;
 
-    Button btConnectTranslation, transBTOff, transModeButton;
+    Button btConnectTranslation, transBTOff, transModeButton, transFont1, transFont2, transFont3;
     TextView status, msg_box;
     EditText writeMsg;
 
@@ -110,6 +110,9 @@ public class SecondFragment extends Fragment {
         btConnectTranslation = view.findViewById(R.id.btConnectTranslation);
         transBTOff = view.findViewById(R.id.transBTOff);
         transModeButton = view.findViewById(R.id.transModeButton);
+        transFont1 = view.findViewById(R.id.transFont1);
+        transFont2 = view.findViewById(R.id.transFont2);
+        transFont3 = view.findViewById(R.id.transFont3);
         Button viewTranslationButton;
         viewTranslationButton = view.findViewById(R.id.view_record_button);
 
@@ -169,7 +172,7 @@ public class SecondFragment extends Fragment {
         transModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Turning On Translation Mode", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Turning On Translation Mode", Toast.LENGTH_SHORT).show();
                 String string = "!TRANSMODE";
                 sendReceive.write(string.getBytes());
             }
@@ -183,6 +186,32 @@ public class SecondFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        transFont1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 1", Toast.LENGTH_SHORT).show();
+                String string = "FONT1";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        transFont2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 2", Toast.LENGTH_SHORT).show();
+                String string = "FONT2";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        transFont3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 3", Toast.LENGTH_SHORT).show();
+                String string = "FONT3";
+                sendReceive.write(string.getBytes());
             }
         });
     }

@@ -59,7 +59,7 @@ public class ThirdFragment extends Fragment {
 //    alertViewModel viewModelAlert;
 //    dangerViewModel viewModelDanger;
 
-    Button btConnectAlert, alertBTOff, alertOnButton;
+    Button btConnectAlert, alertBTOff, alertOnButton, alertFont1, alertFont2, alertFont3;
     TextView status, msg_box;
     EditText writeMsg;
 
@@ -149,6 +149,9 @@ public class ThirdFragment extends Fragment {
         btConnectAlert = view.findViewById(R.id.btConnectAlert);
         alertBTOff = view.findViewById(R.id.alertBTOff);
         alertOnButton = view.findViewById(R.id.alertOnButton);
+        alertFont1 = view.findViewById(R.id.alertFont1);
+        alertFont2 = view.findViewById(R.id.alertFont2);
+        alertFont3 = view.findViewById(R.id.alertFont3);
 
         trainSwitch.setVisibility(View.INVISIBLE);
         walkSwitch.setVisibility(View.INVISIBLE);
@@ -457,6 +460,33 @@ public class ThirdFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        alertFont1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 1", Toast.LENGTH_SHORT).show();
+                String string = "FONT1";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        alertFont2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 2", Toast.LENGTH_SHORT).show();
+                String string = "FONT2";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        alertFont3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 3", Toast.LENGTH_SHORT).show();
+                String string = "FONT3";
+                sendReceive.write(string.getBytes());
             }
         });
     }

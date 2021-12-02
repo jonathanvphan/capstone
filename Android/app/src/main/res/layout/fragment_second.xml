@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/frag2_instruction"
@@ -33,19 +33,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.673" />
+        app:layout_constraintVertical_bias="0.79" />
 
     <Button
         android:id="@+id/btConnectTranslation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Connect Bluetooth"
+        android:text="BT ON"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_record_button"
-        app:layout_constraintVertical_bias="0.183" />
+        app:layout_constraintVertical_bias="0.107" />
 
     <Button
         android:id="@+id/transModeButton"
@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transBTOff" />
+        app:layout_constraintTop_toBottomOf="@+id/transFont2" />
 
     <Button
         android:id="@+id/transBTOff"
@@ -65,9 +65,43 @@
         android:text="BT OFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.721"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_record_button"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <Button
+        android:id="@+id/transFont2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btConnectTranslation"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintVertical_bias="0.173" />
+
+    <Button
+        android:id="@+id/transFont1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/transFont2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btConnectTranslation"
+        app:layout_constraintVertical_bias="0.173" />
+
+    <Button
+        android:id="@+id/transFont3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/transFont2"
+        app:layout_constraintTop_toBottomOf="@+id/transBTOff"
+        app:layout_constraintVertical_bias="0.173" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

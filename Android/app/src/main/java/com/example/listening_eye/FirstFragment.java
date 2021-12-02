@@ -61,7 +61,7 @@ public class FirstFragment extends Fragment {
     private static final String FILE_NAME = "convotext.txt";
     ArrayList<String> resultTextArray = new ArrayList<String>();
     nameViewModel viewModel;
-    Button btConnectConvo, convoBTOff, convoOnButton;
+    Button btConnectConvo, convoBTOff, convoOnButton, convoFont1, convoFont2, convoFont3;
     TextView status, msg_box;
     EditText writeMsg;
     BluetoothDevice device;
@@ -126,6 +126,9 @@ public class FirstFragment extends Fragment {
         btConnectConvo = view.findViewById(R.id.btConnectConvo);
         convoBTOff = view.findViewById(R.id.convoBTOff);
         convoOnButton = view.findViewById(R.id.convoOnButton);
+        convoFont1 = view.findViewById(R.id.convoFont1);
+        convoFont2 = view.findViewById(R.id.convoFont2);
+        convoFont3 = view.findViewById(R.id.convoFont3);
         Button viewConversionButton;
         viewConversionButton = view.findViewById(R.id.view_conversion_history_button);
         viewConversionButton.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +189,7 @@ public class FirstFragment extends Fragment {
         convoOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Turning On Conversation Mode", Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), "Turning On Conversation Mode", Toast.LENGTH_SHORT).show();
                 String string = "!CONVOMODE";
                 sendReceive.write(string.getBytes());
             }
@@ -200,6 +203,33 @@ public class FirstFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        convoFont1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 1", Toast.LENGTH_SHORT).show();
+                String string = "FONT1";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        convoFont2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 2", Toast.LENGTH_SHORT).show();
+                String string = "FONT2";
+                sendReceive.write(string.getBytes());
+            }
+        });
+
+        convoFont3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Changing to Font 3", Toast.LENGTH_SHORT).show();
+                String string = "FONT3";
+                sendReceive.write(string.getBytes());
             }
         });
     }

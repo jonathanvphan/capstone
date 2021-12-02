@@ -15,9 +15,10 @@
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536" />
+        app:layout_constraintVertical_bias="0.463" />
 
     <TextView
         android:id="@+id/frag1_instruction"
@@ -32,19 +33,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <Button
-        android:id="@+id/btConnectConvo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connect Bluetooth"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_conversion_history_button"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintVertical_bias="0.747" />
 
     <Button
         android:id="@+id/convoOnButton"
@@ -55,21 +44,63 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btConnectConvo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BT ON"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/convoBTOff"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/view_conversion_history_button"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/convoBTOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="248dp"
         android:text="BT OFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.718"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/convoFont1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/convoFont2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btConnectConvo"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.142" />
+
+    <Button
+        android:id="@+id/convoFont2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btConnectConvo"
+        app:layout_constraintVertical_bias="0.142" />
+
+    <Button
+        android:id="@+id/convoFont3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FONT3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/convoFont2"
+        app:layout_constraintTop_toBottomOf="@+id/convoBTOff"
+        app:layout_constraintVertical_bias="0.13" />
 
     <!--    <Button-->
 <!--        android:id="@+id/convoOn"-->
